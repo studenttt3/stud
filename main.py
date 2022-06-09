@@ -25,4 +25,13 @@ if page_max < page_min:
     st.error("The maximum number of page can't be smaller than the minimum number of pages!")
 else:
     df_selection = df_selection[(df_selection['num_pages'] <= page_max) & (page_min <= df_selection['num_pages'])]
-    df_selection[0:10]
+    
+year = st.columns(2)
+year_min = year[0].number_input("Minimum year", value = books['published_year'].min())
+year_max = year[1].number_input("Maximum year", value = books['published_year'].max())
+if year_max < year_min:
+    st.error("The maximum year can't be smaller than the minimum year!")
+else:
+    df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
+df_selection[0:10]
+
