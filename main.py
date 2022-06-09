@@ -40,4 +40,4 @@ df_selection[0:10]
 
 
 ##print(wikipedia.page(df_selection[0:1]['authors']).images[0])
-print(wikipedia.search("Bill"))
+wikipedia.search("Bill")
