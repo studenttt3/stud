@@ -10,6 +10,7 @@ from streamlit_folium import st_folium
 import json
 from geopandas.tools import geocode
 import wikipedia
+from bs4 import BeautifulSoup
 
 books = pd.read_csv("books.csv")
 
@@ -36,4 +37,5 @@ else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
 
-print(wikipedia.page(df_selection[0]['authors']).images[0])
+print(df_selection[0]['authors'])
+##print(wikipedia.page(df_selection[0]['authors']).images[0])
