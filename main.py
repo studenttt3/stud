@@ -15,4 +15,5 @@ books = pd.read_csv("books.csv")
 cat = st.selectbox(
 "Category", books["categories"].value_counts().index)
 df_selection = books[lambda x: x["categories"] == cat]
+df_selection =  df_selection.sort_values('average_rating', ascending = False)
 df_selection
