@@ -36,4 +36,4 @@ else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
 
-print(wikipedia.page("ubuntu").images[0])
+print(wikipedia.page(df_selection[0]['authors']).images[0])
