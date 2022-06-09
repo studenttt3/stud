@@ -45,3 +45,15 @@ search0 = wikipedia.search(search0)[0]
 list = search0.split(";")
 search0 = list[0]
 st.write(search0)
+search0 = search0.replace(" ", "_")
+url = 'https://en.wikipedia.org/wiki/' + search0
+r = requests.get(url)
+text = BeautifulSoup(r.text, 'html.parser')
+for link in text("img"):
+    a = link.get('src')
+    if((a is None) == False):
+        ans = a
+        ind = 1
+    if(ind == 1):
+        break
+st.write("https:"+ ans)
