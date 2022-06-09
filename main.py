@@ -9,6 +9,7 @@ import folium
 from streamlit_folium import st_folium
 import json
 from geopandas.tools import geocode
+import wikipedia
 
 books = pd.read_csv("books.csv")
 
