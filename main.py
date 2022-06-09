@@ -9,3 +9,5 @@ import folium
 from streamlit_folium import st_folium
 import json
 from geopandas.tools import geocode
+
+bs = pd.read_csv("Bookshops.csv")
