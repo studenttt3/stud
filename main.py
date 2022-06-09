@@ -38,7 +38,7 @@ else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
 
-search0 = wikipedia.search(df_selection['authors'][0])[0]
+search0 = wikipedia.search(df_selection['authors'][0])
 list = search0.split(";")
 search0 = list[0]
 st.write(df_selection['authors'][0])
