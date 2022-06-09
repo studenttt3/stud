@@ -40,3 +40,7 @@ df_selection[0:10]
 
 
 st.write(df_selection['authors'][0:1].values[0])
+search0 = wikipedia.search(df_selection['authors'][0:1].values[0])
+list = search0.split(";")
+search0 = list[0]
+st.write(search0)
