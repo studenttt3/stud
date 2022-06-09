@@ -54,7 +54,7 @@ st.write(search0)
 search0 = search0.replace(" ", "_")
 url = 'https://en.wikipedia.org/wiki/' + search0
 
-##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
+###driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 driver.get(url)
 player = driver.find_elements_by_xpath('//td[@class="infobox-image"]')
