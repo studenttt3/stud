@@ -18,7 +18,7 @@ df_selection = books[lambda x: x["categories"] == cat]
 df_selection =  df_selection.sort_values('average_rating', ascending = False)
 df_selection = df_selection[['title', 'average_rating', 'num_pages', 'published_year']]
 
-page = st.beta_columns(2)
+page = st.columns(2)
 page_min = page[0].number_input("Minimum number of pages", value = books['num_pages'].min())
 page_max = page[1].number_input("Maximum number of pages", value = books['num_pages'].max())
 if age_max < age_min:
