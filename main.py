@@ -41,3 +41,5 @@ df_selection[0:10]
 st.write(wikipedia.search("Bill"))
 ##print(wikipedia.page(df_selection[0:1]['authors']).images[0])
 ##wikipedia.search("Bill")
+search0 = wikipedia.search(df_selection['authors'][0])[0]
+st.write(search0)
