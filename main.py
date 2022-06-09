@@ -41,6 +41,7 @@ df_selection[0:10]
 search0 = wikipedia.search(df_selection['authors'][0])[0]
 list = search0.split(";")
 search0 = list[0]
+st.write(df_selection['authors'][0])
 search0 = search0.replace(" ", "_")
 url = 'https://en.wikipedia.org/wiki/' + search0
 r = requests.get(url)
