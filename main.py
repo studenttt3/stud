@@ -38,7 +38,7 @@ else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
 
-search0 = wikipedia.search(df_selection['authors'][0])[0]
+search0 = wikipedia.search(books['authors'][0])[0]
 search0 = search0.replace(" ", "_")
 url = 'https://en.wikipedia.org/wiki/' + search0
 r = requests.get(url)
