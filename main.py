@@ -39,4 +39,4 @@ else:
 df_selection[0:10]
 
 
-st.write(str(df_selection['authors'][0:1]))
+st.write(df_selection['authors'][0:1].values[0])
