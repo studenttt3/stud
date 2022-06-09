@@ -15,6 +15,11 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+
+
 
 books = pd.read_csv("books.csv")
 
@@ -49,7 +54,8 @@ st.write(search0)
 search0 = search0.replace(" ", "_")
 url = 'https://en.wikipedia.org/wiki/' + search0
 
-driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
+##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 driver.get(url)
 player = driver.find_elements_by_xpath('//td[@class="infobox-image"]')
 obj = player[0]
