@@ -54,4 +54,7 @@ for link in text("img"):
         ind = 1
     if(ind == 1):
         break
-st.write("https:"+ ans)
+if(ans is None):
+    st.write("К сожалению, фотография автора не найдена в википедии")
+else:
+    st.write("https:"+ ans)
