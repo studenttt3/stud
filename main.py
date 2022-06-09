@@ -21,7 +21,7 @@ df_selection = books[lambda x: x["categories"] == cat]
 df_selection =  df_selection.sort_values('average_rating', ascending = False)
 df_selection = df_selection[['title', 'average_rating', 'authors', 'num_pages', 'published_year']]
 
-optionals = st.beta_expander("Optional Configurations", True)
+optionals = st.expander("Optional Configurations", True)
 fare_min = optionals.slider(
     "Minimum Fare",
     min_value=float(books['num_pages'].min()),
