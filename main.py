@@ -11,12 +11,12 @@ import json
 from geopandas.tools import geocode
 import wikipedia
 from bs4 import BeautifulSoup
-import selenium
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+##import selenium
+##from selenium import webdriver
+##from selenium.webdriver.common.keys import Keys
+##from selenium.webdriver.common.by import By
+##from selenium.webdriver.chrome.service import Service
+##from webdriver_manager.chrome import ChromeDriverManager
 
 
 
@@ -53,25 +53,26 @@ search0 = wikipedia.search(search0)[0]
 st.write(search0)
 search0 = search0.replace(" ", "_")
 url = 'https://en.wikipedia.org/wiki/' + search0
+r = requests.get(url)
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-driver.get(url)
-player = driver.find_elements_by_xpath('//td[@class="infobox-image"]')
-obj = player[0]
-picture_url = obj.find_element(By.TAG_NAME, "img").get_attribute("src")
-st.write("https:"+ picture_url)
+##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+##driver.get(url)
+##player = driver.find_elements_by_xpath('//td[@class="infobox-image"]')
+##obj = player[0]
+##picture_url = obj.find_element(By.TAG_NAME, "img").get_attribute("src")
+##st.write("https:"+ picture_url)
 
-##text = BeautifulSoup(r.text, 'html.parser')
-##for link in text("img"):
-    ##a = link.get('src')
-    ##if((a is None) == False):
-        ##ans = a
-        ##ind = 1
-    ##if(ind == 1):
-        ##break
-##if(ans is None):
-    ##st.write("К сожалению, фотография автора не найдена в википедии")
-##else:
-    ##st.write("https:"+ ans)
+text = BeautifulSoup(r.text, 'html.parser')
+for link in text("img"):
+    a = link.get('src')
+    if((a is None) == False):
+        ans = a
+        ind = 1
+    if(ind == 1):
+        break
+if(ans is None):
+    st.write("К сожалению, фотография автора не найдена в википедии")
+else:
+    st.write("https:"+ ans)
 
