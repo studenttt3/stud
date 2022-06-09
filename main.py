@@ -11,6 +11,7 @@ import json
 from geopandas.tools import geocode
 import wikipedia
 from bs4 import BeautifulSoup
+import requests
 
 books = pd.read_csv("books.csv")
 
