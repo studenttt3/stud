@@ -11,7 +11,6 @@ import json
 from geopandas.tools import geocode
 
 books = pd.read_csv("books.csv")
-books = books.astype({'num_pages': np.int})
 
 cat = st.selectbox(
 "Category", books["categories"].value_counts().index)
