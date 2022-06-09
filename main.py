@@ -38,6 +38,6 @@ else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
 
-st.write("dfgs")
+st.write(wikipedia.search("Bill"))
 ##print(wikipedia.page(df_selection[0:1]['authors']).images[0])
-wikipedia.search("Bill")
+##wikipedia.search("Bill")
