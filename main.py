@@ -21,7 +21,7 @@ df_selection = df_selection[['title', 'average_rating', 'num_pages', 'published_
 page = st.columns(2)
 page_min = page[0].number_input("Minimum number of pages", value = books['num_pages'].min())
 page_max = page[1].number_input("Maximum number of pages", value = books['num_pages'].max())
-if age_max < age_min:
+if page_max < page_min:
     st.error("The maximum number of page can't be smaller than the minimum number of pages!")
 else:
     df_selection = df_selection[(df_selection['num_pages'] <= page_max) & (page_min <= df_selection['num_pages'])]
