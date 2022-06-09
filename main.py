@@ -21,13 +21,25 @@ df_selection = books[lambda x: x["categories"] == cat]
 df_selection =  df_selection.sort_values('average_rating', ascending = False)
 df_selection = df_selection[['title', 'average_rating', 'authors', 'num_pages', 'published_year']]
 
+optionals = st.beta_expander("Optional Configurations", True)
+fare_min = optionals.slider(
+    "Minimum Fare",
+    min_value=float(books['num_pages'].min()),
+    max_value=float(books['num_pages'].max())
+)
+fare_max = optionals.slider(
+    "Maximum Fare",
+    min_value=float(books['num_pages'].min()),
+    max_value=float(books['num_pages'].max())
+)
+
 page = st.columns(2)
 page_min = page[0].number_input("Minimum number of pages", value = books['num_pages'].min())
 page_max = page[1].number_input("Maximum number of pages", value = books['num_pages'].max())
 if page_max < page_min:
     st.error("The maximum number of page can't be smaller than the minimum number of pages!")
 else:
-    df_selection = df_selection[(df_selection['num_pages'] <= page_max) & (page_min <= df_selection['num_pages'])]
+    df_selection = df_selection[(df_selection['num_pages'] <= fare_max) & (fare_min <= df_selection['num_pages'])]
     
 year = st.columns(2)
 year_min = year[0].number_input("Minimum year", value = books['published_year'].min())
