@@ -5,3 +5,5 @@ pywaffle==0.6.4
 folium
 streamlit-folium
 wikipedia
+bs4
+requests
