@@ -21,31 +21,19 @@ df_selection = books[lambda x: x["categories"] == cat]
 df_selection =  df_selection.sort_values('average_rating', ascending = False)
 df_selection = df_selection[['title', 'average_rating', 'authors', 'num_pages', 'published_year']]
 
-optionals = st.expander("Optional Configurations", True)
-fare_min = optionals.slider(
-    "Minimum Fare",
-    min_value=float(books['num_pages'].min()),
-    max_value=float(books['num_pages'].max())
-)
-fare_max = optionals.slider(
-    "Maximum Fare",
-    min_value=float(books['num_pages'].min()),
-    max_value=float(books['num_pages'].max())
-)
-
-page = st.columns(2)
-page_min = page[0].number_input("Minimum number of pages", value = books['num_pages'].min())
-page_max = page[1].number_input("Maximum number of pages", value = books['num_pages'].max())
+optionals1 = st.expander("Выберите желаемый диапазон количества страниц", True)
+page_min = optionals1.slider("Минимальное количество страниц", min_value=float(books['num_pages'].min()), max_value=float(books['num_pages'].max()))
+page_max = optionals1.slider("Максимальное количество страниц", min_value=float(books['num_pages'].min()), max_value=float(books['num_pages'].max()))
 if page_max < page_min:
-    st.error("The maximum number of page can't be smaller than the minimum number of pages!")
+    st.error("Минимальное количество страниц должно быть меньше максимального, иначе не получится найти ничего подходящего!")
 else:
-    df_selection = df_selection[(df_selection['num_pages'] <= fare_max) & (fare_min <= df_selection['num_pages'])]
+    df_selection = df_selection[(df_selection['num_pages'] <= page_max) & (page_min <= df_selection['num_pages'])]
     
-year = st.columns(2)
-year_min = year[0].number_input("Minimum year", value = books['published_year'].min())
-year_max = year[1].number_input("Maximum year", value = books['published_year'].max())
+optionals2 = st.expander("Выберите желаемый диапазон года публикации", True)
+page_min = optionals2.slider("Минимальный год", min_value=float(books['published_year'].min()), max_value=float(books['published_year'].max()))
+page_max = optionals2.slider("Максимальный год", min_value=float(books['published_year'].min()), max_value=float(books['published_year'].max()))
 if year_max < year_min:
-    st.error("The maximum year can't be smaller than the minimum year!")
+    st.error("Минимальный год публикации должен быть меньше максимального, иначе не получится найти ничего подходящего!")
 else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
