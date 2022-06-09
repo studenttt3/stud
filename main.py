@@ -39,4 +39,5 @@ else:
 df_selection[0:10]
 df_selection[0:1]['authors']
 
-print(wikipedia.page(df_selection[0:1]['authors']).images[0])
+##print(wikipedia.page(df_selection[0:1]['authors']).images[0])
+print(wikipedia.search("Bill"))
