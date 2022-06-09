@@ -8,4 +8,4 @@ wikipedia
 bs4
 requests
 selenium
-ChromeDriverManager
+webdriver_manager.chrome
