@@ -65,15 +65,17 @@ r = requests.get(url)
 ##st.write("https:"+ picture_url)
 
 text = BeautifulSoup(r.text, 'html.parser')
-for link in text("img"):
-    a = link.get('src')
-    if((a is None) == False):
-        ans = a
-        ind = 1
-    if(ind == 1):
-        break
-if(ans is None):
-    st.write("К сожалению, фотография автора не найдена в википедии")
-else:
-    st.write("https:"+ ans)
+for i in text("td"):
+    if(class == "infobox-image"):
+        for link in text("img"):
+            a = link.get('src')
+            if((a is None) == False):
+                ans = a
+                ind = 1
+            if(ind == 1):
+                break
+        if(ans is None):
+            st.write("К сожалению, фотография автора не найдена в википедии")
+        else:
+            st.write("https:"+ ans)
 
