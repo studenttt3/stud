@@ -36,6 +36,7 @@ if year_max < year_min:
 else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
-str(df_selection[0:1]['authors'])
+df_selection[0:1]['authors']
+##str(df_selection[0:1]['authors'])
 
 ##print(wikipedia.page(df_selection[0:1]['authors']).images[0])
