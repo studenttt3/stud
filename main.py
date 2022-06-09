@@ -30,8 +30,8 @@ else:
     df_selection = df_selection[(df_selection['num_pages'] <= page_max) & (page_min <= df_selection['num_pages'])]
     
 optionals2 = st.expander("Выберите желаемый диапазон года публикации", True)
-page_min = optionals2.slider("Минимальный год", min_value=float(books['published_year'].min()), max_value=float(books['published_year'].max()))
-page_max = optionals2.slider("Максимальный год", min_value=float(books['published_year'].min()), max_value=float(books['published_year'].max()))
+year_min = optionals2.slider("Минимальный год", min_value=float(books['published_year'].min()), max_value=float(books['published_year'].max()))
+year_max = optionals2.slider("Максимальный год", min_value=float(books['published_year'].min()), max_value=float(books['published_year'].max()))
 if year_max < year_min:
     st.error("Минимальный год публикации должен быть меньше максимального, иначе не получится найти ничего подходящего!")
 else:
