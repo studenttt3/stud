@@ -4,3 +4,4 @@ matplotlib==3.5.2
 pywaffle==0.6.4
 folium
 streamlit-folium
+wikipedia
