@@ -38,8 +38,16 @@ else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
 
-st.write(wikipedia.search("Bill"))
-##print(wikipedia.page(df_selection[0:1]['authors']).images[0])
-##wikipedia.search("Bill")
 search0 = wikipedia.search(df_selection['authors'][0])[0]
-st.write(search0)
+search0 = search0.replace(" ", "_")
+url = 'https://en.wikipedia.org/wiki/' + search0
+r = requests.get(url)
+text = BeautifulSoup(r.text, 'html.parser')
+for link in text("img"):
+    a = link.get('src')
+    if((a is None) == False):
+        ans = a
+        ind = 1
+    if(ind == 1):
+        break
+st.write("https:"+ ans)
