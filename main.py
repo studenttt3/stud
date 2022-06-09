@@ -11,6 +11,7 @@ import json
 from geopandas.tools import geocode
 import wikipedia
 from bs4 import BeautifulSoup
+import requests
 ##import selenium
 ##from selenium import webdriver
 ##from selenium.webdriver.common.keys import Keys
