@@ -20,7 +20,7 @@ import requests
 ##from webdriver_manager.chrome import ChromeDriverManager
 
 
-
+bs = pd.read_csv("Bookshops.csv")
 
 books = pd.read_csv("books_edited.csv")
 books = books.astype({"num_pages": "Int64"})
@@ -68,6 +68,13 @@ st.markdown("Also you can read description of this book.")
 st.markdown(need['description'][0:1].values[0])
 
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
+
+if(which_bs == "Наибольшая концентрация книжных магазинов"):
+    bs1 = bs.sort_values(by =['Figure'])[:10]
+    fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
+    ax.vlines(x=df_11['Country Name'], ymin = 0, ymax= df_11['Male Height in Cm'], color='blue', alpha=0.7, linewidth=2)
+    ax.scatter(x=df_11['Country Name'], y=df_11['Male Height in Cm'], s=75, color='blue', alpha=0.7)
+    st.pyplot(fig)
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
