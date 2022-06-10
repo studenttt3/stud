@@ -57,7 +57,7 @@ st.write(need)
 search0 = need['authors'][0:1].values[0]
 list = search0.split(";")
 aut = ""
-ln = len(list.index)
+ln = len(list)
 for i in range(ln):
     if(i != ln):
         aut = aut + list[i] + " and"
