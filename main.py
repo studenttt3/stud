@@ -50,6 +50,9 @@ df_demonstr = df_selection[['title', 'average_rating', 'authors', 'num_pages', '
 df_demonstr[0:10]
 
 name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
+need = df_selection[lambda x: x["name"] == name_book]
+st.write(need)
+st.markdown("This book was written by")
 
 search0 = df_selection['authors'][0:1].values[0]
 list = search0.split(";")
