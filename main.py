@@ -64,7 +64,7 @@ for i in range(ln):
     else:
         aut = aut + list[i]
 st.markdown("This book was written by " + aut + ". You can learn more about him/her or them at this link" + need['wiki_url'][0:1].values[0])
-st.markdown("Also you can read description of this book.")
+st.markdown("Also you can read description of this book below.")
 st.markdown(need['description'][0:1].values[0])
 
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
