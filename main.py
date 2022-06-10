@@ -22,15 +22,14 @@ import requests
 
 
 
-books = pd.read_csv("books.csv")
+books = pd.read_csv("books_edited.csv")
 books = books.astype({"num_pages": "Int64"})
 books = books.astype({"published_year": "Int64"})
 
 cat = st.selectbox(
-"Category", books["categories"].value_counts().index)
+"Категория", books["categories"].value_counts().index)
 df_selection = books[lambda x: x["categories"] == cat]
 df_selection =  df_selection.sort_values('average_rating', ascending = False)
-df_selection = df_selection[['title', 'average_rating', 'authors', 'num_pages', 'published_year']]
 
 optionals1 = st.expander("Выберите желаемый диапазон количества страниц", True)
 page_min = optionals1.slider("Минимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()))
@@ -47,7 +46,8 @@ if year_max < year_min:
     st.error("Минимальный год публикации должен быть меньше максимального, иначе не получится найти ничего подходящего!")
 else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
-df_selection[0:10]
+df_demonstr = df_selection[['title', 'average_rating', 'authors', 'num_pages', 'published_year']]
+df_demonstr[0:10]
 
 name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
 
