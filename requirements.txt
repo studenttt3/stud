@@ -7,4 +7,3 @@ streamlit-folium
 wikipedia
 bs4
 requests
-PIL == 5.1.0
