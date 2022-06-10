@@ -67,7 +67,7 @@ st.markdown("This book was written by " + aut + ". You can learn more about him/
 st.markdown("Also you can read description of this book.")
 st.markdown(need['description'][0:1].values[0])
 
-
+which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
