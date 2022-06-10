@@ -63,21 +63,15 @@ for i in range(ln):
         aut = aut + list[i] + " and "
     else:
         aut = aut + list[i]
+st.image(need['thumbnail'][0:1].values[0])
 st.markdown("This book was written by " + aut + ". You can learn more about him/her or them at this link" + need['wiki_url'][0:1].values[0])
+url_pic = need['image_url'][0:1].values[0]
+st.image(url_pic)
 st.markdown("Also you can read description of this book below.")
 st.markdown(need['description'][0:1].values[0])
 
 
-url_pic = need['image_url'][0:1].values[0]
-'''
-r = get.requests(url_pic)
-out = open("...\img.jpg", 'wb')
-out.write(resource.content())
-out.close()
-imga =Image.open("...\img.jpg")
-imga.show
-'''
-st.image(url_pic)
+
 
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
 
