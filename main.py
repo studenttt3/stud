@@ -51,7 +51,6 @@ df_demonstr[0:10]
 
 name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
 need = df_selection[lambda x: x["title"] == name_book]
-st.write(need)
 
 
 search0 = need['authors'][0:1].values[0]
