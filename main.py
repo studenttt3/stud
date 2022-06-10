@@ -72,8 +72,8 @@ which_bs = st.radio("", ('Наибольшая концентрация книж
 if(which_bs == "Наибольшая концентрация книжных магазинов"):
     bs1 = bs.sort_values(by =['Figure'])[:10]
     fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
-    ax.vlines(x=df_11['City'], ymin = 0, ymax= df_11['Figure'], color='blue', alpha=0.7, linewidth=2)
-    ax.scatter(x=df_11['City'], y=df_11['Figure'], s=75, color='blue', alpha=0.7)
+    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
+    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
     st.pyplot(fig)
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
