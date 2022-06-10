@@ -63,7 +63,8 @@ for i in range(ln):
         aut = aut + list[i] + " and "
     else:
         aut = aut + list[i]
-st.image(need['thumbnail'][0:1].values[0])
+if((need['thumbnail'][0:1].values[0] is None) == False):
+    st.image(need['thumbnail'][0:1].values[0])
 st.markdown("This book was written by " + aut + ". You can learn more about him/her or them at this link" + need['wiki_url'][0:1].values[0])
 url_pic = need['image_url'][0:1].values[0]
 st.image(url_pic)
