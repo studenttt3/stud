@@ -12,7 +12,7 @@ from geopandas.tools import geocode
 import wikipedia
 from bs4 import BeautifulSoup
 import requests
-from PIL import Image, ImageDraw
+##from PIL import Image, ImageDraw
 ##import selenium
 ##from selenium import webdriver
 ##from selenium.webdriver.common.keys import Keys
@@ -68,6 +68,7 @@ st.markdown("This book was written by " + aut + ". You can learn more about him/
 st.markdown("Also you can read description of this book below.")
 st.markdown(need['description'][0:1].values[0])
 
+'''
 url_pic = need['image_url'][0:1].values[0]
 r = get.requests(url_pic)
 out = open("...\img.jpg", 'wb')
@@ -75,7 +76,7 @@ out.write(resource.content())
 out.close()
 imga =Image.open("...\img.jpg")
 imga.show
-
+'''
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
 
 if(which_bs == "Наибольшая концентрация книжных магазинов"):
