@@ -47,7 +47,7 @@ else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_selection[0:10]
 
-name_book = st.radio("Название книги", df_selection[0:10]['title'].unique())
+name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
 
 search0 = df_selection['authors'][0:1].values[0]
 list = search0.split(";")
