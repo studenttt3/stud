@@ -34,7 +34,7 @@ df_selection = df_selection[['title', 'average_rating', 'authors', 'num_pages', 
 
 optionals1 = st.expander("Выберите желаемый диапазон количества страниц", True)
 page_min = optionals1.slider("Минимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()))
-page_max = optionals1.slider("Максимальное количество страниц", min_value=float(books['num_pages'].min()), max_value=float(books['num_pages'].max()))
+page_max = optionals1.slider("Максимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()), value = int(books['num_pages'].max()))
 if page_max < page_min:
     st.error("Минимальное количество страниц должно быть меньше максимального, иначе не получится найти ничего подходящего!")
 else:
