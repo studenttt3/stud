@@ -50,7 +50,7 @@ df_demonstr = df_selection[['title', 'average_rating', 'authors', 'num_pages', '
 df_demonstr[0:10]
 
 name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
-need = df_selection[lambda x: x["name"] == name_book]
+need = df_selection[lambda x: x["title"] == name_book]
 st.write(need)
 st.markdown("This book was written by")
 
