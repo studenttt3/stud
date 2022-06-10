@@ -73,7 +73,8 @@ r = get.requests(url_pic)
 out = open("...\img.jpg", 'wb')
 out.write(resource.content())
 out.close()
-
+imga =Image.open("...\img.jpg")
+imga.show
 
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
 
