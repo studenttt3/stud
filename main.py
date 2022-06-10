@@ -59,11 +59,11 @@ list = search0.split(";")
 aut = ""
 ln = len(list)
 for i in range(ln):
-    if(i != ln):
+    if(i != ln - 1):
         aut = aut + list[i] + " and"
     else:
         aut = aut + list[i]
-st.markdown("This book was written by" + aut)
+st.markdown("This book was written by " + aut)
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
