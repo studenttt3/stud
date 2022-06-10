@@ -7,3 +7,4 @@ streamlit-folium
 wikipedia
 bs4
 requests
+
