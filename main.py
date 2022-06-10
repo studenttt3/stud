@@ -63,7 +63,9 @@ for i in range(ln):
         aut = aut + list[i] + " and"
     else:
         aut = aut + list[i]
-st.markdown("This book was written by " + aut + ". You can learn more about him/her or them at this link" + need['wiki_url'][0:1].values[0] + ".")
+st.markdown("This book was written by " + aut + ". You can learn more about him/her or them at this link" + need['wiki_url'][0:1].values[0])
+st.markdown("Also you can read description of this book.")
+st.markdown(need['description'][0:1].values[0])
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
