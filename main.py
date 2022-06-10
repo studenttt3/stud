@@ -70,7 +70,7 @@ st.markdown(need['description'][0:1].values[0])
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
 
 if(which_bs == "Наибольшая концентрация книжных магазинов"):
-    bs1 = bs.sort_values(by =['Figure'])[:-10]
+    bs1 = bs.sort_values(by =['Figure'])[-10:]
     fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
     ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
     ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
