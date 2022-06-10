@@ -23,6 +23,7 @@ import requests
 
 
 books = pd.read_csv("books.csv")
+books["num_pages"] = df['num_pages'].astype('int')
 
 cat = st.selectbox(
 "Category", books["categories"].value_counts().index)
