@@ -46,22 +46,24 @@ if year_max < year_min:
     st.error("Минимальный год публикации должен быть меньше максимального, иначе не получится найти ничего подходящего!")
 else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
-df_demonstr = df_selection[['title', 'average_rating', 'authors', 'num_pages', 'published_year']]
+df_demonstr = df_selection[['title', 'authors', 'average_rating',  'num_pages', 'published_year']]
 df_demonstr[0:10]
 
 name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
 need = df_selection[lambda x: x["title"] == name_book]
 st.write(need)
-st.markdown("This book was written by")
 
-search0 = df_selection['authors'][0:1].values[0]
+
+search0 = need['authors'][0:1].values[0]
 list = search0.split(";")
-search0 = list[0]
-search0 = wikipedia.search(search0)[0]
-st.write(search0)
-search0 = search0.replace(" ", "_")
-url = 'https://en.wikipedia.org/wiki/' + search0
-r = requests.get(url)
+aut = ""
+len = len(list.index)
+for i in range(len):
+    if(i != len):
+        aut = aut + list[i] + " and"
+    else:
+        aut = aut + list[i]
+st.markdown("This book was written by" + aut)
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
