@@ -65,9 +65,12 @@ url_pic = need['image_url'][0:1].values[0]
 st.image(url_pic)
 st.markdown("Also you can read description of this book below.")
 st.markdown(need['description'][0:1].values[0])
-analyze = need['description'][0:1].values[0]
-words = re.findall("[a-zA-Z]+", analyze)
-st.write("Длина описания - " + str(len(words)) + " слов.  Из них " + str(len(set(words))) + " слов являются уникальными.")
+try:
+    analyze = need['description'][0:1].values[0]
+    words = re.findall("[a-zA-Z]+", analyze)
+    st.write("Длина описания - " + str(len(words)) + " слов.  Из них " + str(len(set(words))) + " слов являются уникальными.")
+except:
+    pass
 
 pr = pd.read_csv("predict.csv")
 pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
