@@ -126,22 +126,30 @@ if(which_bs == "Наибольшая концентрация книжных м�
     ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
     ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
     st.pyplot(fig)
+    map1 = folium.Map(location=[0, 0], zoom_start = 1)
+    geo1 = geo[0:5]
+    geo2 = geo[5:10]
+    lat1 = geo1['lat'] 
+    lon1 = geo1['lon']
+    city1 = geo1['City']
+    for lat1, lon1, city1 in zip(lat1, lon1, city1): 
+        folium.Marker(location=[lat1, lon1], popup = str(city1)).add_to(map1)
+    st_data1 = st_folium(map1, width = 750)
+    
 if(which_bs == "Наименьшая концентрация книжных магазинов"):
     bs1 = bs.sort_values(by =['Figure'])[:5]
     fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
     ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
     ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
     st.pyplot(fig)
-    
-map = folium.Map(location=[0, 0], zoom_start = 1)
-geo1 = geo[0:5]
-geo2 = geo[5:10]
-lat = geo1['lat'] 
-lon = geo1['lon']
-city = geo1['City']
-for lat, lon, city in zip(lat, lon, city): 
-    folium.Marker(location=[lat, lon], popup=str(city)).add_to(map)
-st_data=st_folium(map, width=750)
+    map2 = folium.Map(location=[0, 0], zoom_start = 1)
+    lat2 = geo2['lat'] 
+    lon2 = geo2['lon']
+    city2 = geo2['City']
+    for lat2, lon2, city2 in zip(lat2, lon2, city2): 
+        folium.Marker(location = [lat2, lon2], popup = str(city2)).add_to(map2)
+    st_data2 = st_folium(map2, width = 750)
+
     
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
