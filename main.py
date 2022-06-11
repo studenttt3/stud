@@ -128,7 +128,6 @@ if(which_bs == "Наибольшая концентрация книжных м�
     st.pyplot(fig)
     map1 = folium.Map(location=[0, 0], zoom_start = 1)
     geo1 = geo[0:5]
-    geo2 = geo[5:10]
     lat1 = geo1['lat'] 
     lon1 = geo1['lon']
     city1 = geo1['City']
@@ -143,6 +142,7 @@ if(which_bs == "Наименьшая концентрация книжных м�
     ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
     st.pyplot(fig)
     map2 = folium.Map(location=[0, 0], zoom_start = 1)
+    geo2 = geo[5:10]
     lat2 = geo2['lat'] 
     lon2 = geo2['lon']
     city2 = geo2['City']
