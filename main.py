@@ -105,6 +105,12 @@ pr['rating'] = pd.to_numeric(pr['rating'])
 pr['price'] = pd.to_numeric(pr['price'])
 pr = pr.astype({"type": "Int64"})
 
+type_sel = 2
+rating_sel = 4.2
+model = LinearRegression()
+model.fit(pr.drop(columns=["price"]), pr["price"])
+st.write(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_)
+
 st.write(pr.corr())
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
