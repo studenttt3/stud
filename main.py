@@ -14,16 +14,8 @@ from bs4 import BeautifulSoup
 import requests
 import sklearn
 from sklearn.linear_model import LinearRegression
-##import selenium
-##from selenium import webdriver
-##from selenium.webdriver.common.keys import Keys
-##from selenium.webdriver.common.by import By
-##from selenium.webdriver.chrome.service import Service
-###from webdriver_manager.chrome import ChromeDriverManager
-
 
 bs = pd.read_csv("Bookshops.csv")
-
 books = pd.read_csv("books_edited.csv")
 books = books.astype({"num_pages": "Int64"})
 books = books.astype({"published_year": "Int64"})
@@ -54,7 +46,6 @@ df_demonstr[0:10]
 name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
 need = df_selection[lambda x: x["title"] == name_book]
 
-
 search0 = need['authors'][0:1].values[0]
 list = search0.split(";")
 aut = ""
@@ -74,11 +65,7 @@ st.image(url_pic)
 st.markdown("Also you can read description of this book below.")
 st.markdown(need['description'][0:1].values[0])
 
-
-
-
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
-
 if(which_bs == "Наибольшая концентрация книжных магазинов"):
     bs1 = bs.sort_values(by =['Figure'])[-5:]
     fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
@@ -119,8 +106,6 @@ rating_sel = opt.slider("Рейтинг книги", min_value = 3.0, max_value 
 model = LinearRegression()
 model.fit(pr.drop(columns=["price"]), pr["price"])
 st.write(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_)
-
-st.write(pr.corr())
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
