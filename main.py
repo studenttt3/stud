@@ -115,7 +115,7 @@ if(type_s == 'Книга в мягкой обложке'):
 if(type_s == 'Книга в твердой обложке'):
     type_sel = 3
 opt = st.expander("", True)
-rating_sel = opt.slider("Рейтинг книги", min_value = 0.0, max_value = 5.0)
+rating_sel = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
 model = LinearRegression()
 model.fit(pr.drop(columns=["price"]), pr["price"])
 st.write(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_)
