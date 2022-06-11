@@ -89,6 +89,21 @@ if(which_bs == "Наименьшая концентрация книжных м�
     ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
     ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
     st.pyplot(fig)
+    
+pr = pd.read_csv("predict.csv")
+pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
+pr.loc[(pr.type == "Paperback"), 'type'] = 2
+pr.loc[(pr.type == "Hardcover"), 'type'] = 3
+pr.drop(labels = [11],axis = 0, inplace = True)
+pr.drop(labels = [40],axis = 0, inplace = True)
+pr.drop(labels = [33],axis = 0, inplace = True)
+pr = pr.reset_index()
+pr = pr[['type', 'rating', 'price']]
+for i in range(len(pr.index)):
+    pr.loc[i,'rating'] = pr['rating'][i:i+1].values[0][0:3]
+pr['rating'] = pd.to_numeric(pr['rating'])
+pr['price'] = pd.to_numeric(pr['price'])
+pr
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
