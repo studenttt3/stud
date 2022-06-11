@@ -8,4 +8,4 @@ wikipedia
 bs4
 requests
 sklearn
-
+LinearRegression
