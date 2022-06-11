@@ -15,11 +15,13 @@ import requests
 import sklearn
 from sklearn.linear_model import LinearRegression
 import re
+import sqlite3
 
 bs = pd.read_csv("Bookshops.csv")
 books = pd.read_csv("books_edited.csv")
 books = books.astype({"num_pages": "Int64"})
 books = books.astype({"published_year": "Int64"})
+geo = pd.read_csv("geo.csv")
 
 cat = st.selectbox(
 "Категория", books["categories"].value_counts().index)
@@ -130,6 +132,15 @@ if(which_bs == "Наименьшая концентрация книжных м�
     ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
     ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
     st.pyplot(fig)
+    
+map = folium.Map(location=[0, 0], zoom_start = 1)
+geo1 = geo[0:5]
+geo2 = geo[5:10]
+lat = geo1['lat'] 
+lon = geo['lon']
+for lat, lon in zip(lat, lon): 
+    folium.Marker(location=[lat, lon]).add_to(map)
+st_data=st_folium(map, width=900)
     
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
