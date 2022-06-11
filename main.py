@@ -133,13 +133,14 @@ if(which_bs == "Наименьшая концентрация книжных м�
     ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
     st.pyplot(fig)
     
-map = folium.Map(location=[0, 0], zoom_start = 1.5)
+map = folium.Map(location=[0, 0], zoom_start = 1)
 geo1 = geo[0:5]
 geo2 = geo[5:10]
 lat = geo1['lat'] 
-lon = geo['lon']
-for lat, lon in zip(lat, lon): 
-    folium.Marker(location=[lat, lon]).add_to(map)
+lon = geo1['lon']
+city = geo1['City']
+for lat, lon, city in zip(lat, lon, city): 
+    folium.Marker(location=[lat, lon], popup=str(city)).add_to(map)
 st_data=st_folium(map, width=750)
     
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
