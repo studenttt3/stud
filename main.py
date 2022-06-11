@@ -91,9 +91,9 @@ if(which_bs == "Наименьшая концентрация книжных м�
     st.pyplot(fig)
     
 pr = pd.read_csv("predict.csv")
-pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
-pr.loc[(pr.type == "Paperback"), 'type'] = 2
-pr.loc[(pr.type == "Hardcover"), 'type'] = 3
+pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1.0
+pr.loc[(pr.type == "Paperback"), 'type'] = 2.0
+pr.loc[(pr.type == "Hardcover"), 'type'] = 3.0
 pr.drop(labels = [11],axis = 0, inplace = True)
 pr.drop(labels = [40],axis = 0, inplace = True)
 pr.drop(labels = [33],axis = 0, inplace = True)
