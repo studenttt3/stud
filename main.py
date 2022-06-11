@@ -107,8 +107,14 @@ pr['rating'] = pd.to_numeric(pr['rating'])
 pr['price'] = pd.to_numeric(pr['price'])
 pr = pr.astype({"type": "Int64"})
 
-type_sel = 2
-rating_sel = 4.2
+type_s = st.radio("", ('Электронная версия','Книга в мягкой обложке', 'Книга в твердой обложке'))
+if(type_s == 'Электронная версия'):
+    type_sel = 1
+if(type_s == 'Книга в мягкой обложке'):
+    type_sel = 2
+if(type_s == 'Книга в твердой обложке'):
+    type_sel = 3
+rating_sel = optionals1.slider("Рейтинг книги", min_value = 0.0, max_value = 5.0)
 model = LinearRegression()
 model.fit(pr.drop(columns=["price"]), pr["price"])
 st.write(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_)
