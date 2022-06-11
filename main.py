@@ -104,7 +104,7 @@ for i in range(len(pr.index)):
 pr['rating'] = pd.to_numeric(pr['rating'])
 pr['price'] = pd.to_numeric(pr['price'])
 pr
-pr.corr()
+st.write(pr.corr())
 
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
