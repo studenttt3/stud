@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 import requests
 import sklearn
 from sklearn.linear_model import LinearRegression
+import re
 
 bs = pd.read_csv("Bookshops.csv")
 books = pd.read_csv("books_edited.csv")
@@ -104,6 +105,10 @@ if(type_s0 == 'Книга в твердой обложке'):
 opt = st.expander("", True)
 rating_sel0 = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
 st.write(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_)
+
+analyze = need['description'][0:1].values[0]
+words = re.findall("[a-zA-Z]+", analyze)
+st.write("Длина описания" + str(len(words)) + "слов.  Из них " + str(len(set(words))) + "слов являются уникальными.")
 
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
 if(which_bs == "Наибольшая концентрация книжных магазинов"):
