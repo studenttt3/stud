@@ -62,7 +62,10 @@ except:
     pass
 st.markdown("This book was written by " + aut + ". You can learn more about him/her or them at this link" + need['wiki_url'][0:1].values[0])
 url_pic = need['image_url'][0:1].values[0]
-st.image(url_pic)
+try:
+    st.image(url_pic)
+except:
+    pass
 st.markdown("Also you can read description of this book below.")
 st.markdown(need['description'][0:1].values[0])
 try:
