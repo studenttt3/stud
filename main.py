@@ -133,7 +133,7 @@ if(which_bs == "Наименьшая концентрация книжных м�
     ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
     st.pyplot(fig)
     
-map = folium.Map(location=[0, 0], zoom_start = 3)
+map = folium.Map(location=[0, 0], zoom_start = 1.5)
 geo1 = geo[0:5]
 geo2 = geo[5:10]
 lat = geo1['lat'] 
