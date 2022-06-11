@@ -13,6 +13,7 @@ import wikipedia
 from bs4 import BeautifulSoup
 import requests
 import sklearn
+from sklearn.linear_model import LinearRegression
 ##import selenium
 ##from selenium import webdriver
 ##from selenium.webdriver.common.keys import Keys
