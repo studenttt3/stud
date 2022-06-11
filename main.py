@@ -65,20 +65,6 @@ st.image(url_pic)
 st.markdown("Also you can read description of this book below.")
 st.markdown(need['description'][0:1].values[0])
 
-which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
-if(which_bs == "Наибольшая концентрация книжных магазинов"):
-    bs1 = bs.sort_values(by =['Figure'])[-5:]
-    fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
-    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
-    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
-    st.pyplot(fig)
-if(which_bs == "Наименьшая концентрация книжных магазинов"):
-    bs1 = bs.sort_values(by =['Figure'])[:5]
-    fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
-    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
-    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
-    st.pyplot(fig)
-    
 pr = pd.read_csv("predict.csv")
 pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
 pr.loc[(pr.type == "Paperback"), 'type'] = 2
@@ -102,11 +88,26 @@ if(type_s == 'Книга в мягкой обложке'):
 if(type_s == 'Книга в твердой обложке'):
     type_sel = 3
 opt = st.expander("", True)
-rating_sel = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
+rating_sel = need['average_rating'][0:1].values[0]
+#rating_sel = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
 model = LinearRegression()
 model.fit(pr.drop(columns=["price"]), pr["price"])
 st.write(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_)
 
+which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
+if(which_bs == "Наибольшая концентрация книжных магазинов"):
+    bs1 = bs.sort_values(by =['Figure'])[-5:]
+    fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
+    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
+    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
+    st.pyplot(fig)
+if(which_bs == "Наименьшая концентрация книжных магазинов"):
+    bs1 = bs.sort_values(by =['Figure'])[:5]
+    fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
+    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
+    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
+    st.pyplot(fig)
+    
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 ##driver.get(url)
