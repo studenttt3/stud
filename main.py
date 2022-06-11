@@ -65,6 +65,9 @@ url_pic = need['image_url'][0:1].values[0]
 st.image(url_pic)
 st.markdown("Also you can read description of this book below.")
 st.markdown(need['description'][0:1].values[0])
+analyze = need['description'][0:1].values[0]
+words = re.findall("[a-zA-Z]+", analyze)
+st.write("Длина описания - " + str(len(words)) + " слов.  Из них " + str(len(set(words))) + " слов являются уникальными.")
 
 pr = pd.read_csv("predict.csv")
 pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
@@ -106,9 +109,7 @@ opt = st.expander("", True)
 rating_sel0 = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
 st.write(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_)
 
-analyze = need['description'][0:1].values[0]
-words = re.findall("[a-zA-Z]+", analyze)
-st.write("Длина описания" + str(len(words)) + "слов.  Из них " + str(len(set(words))) + "слов являются уникальными.")
+
 
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
 if(which_bs == "Наибольшая концентрация книжных магазинов"):
