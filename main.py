@@ -194,7 +194,6 @@ fig, ax = plt.subplots()
 pos = nx.kamada_kawai_layout(G)
 nx.draw(G,pos, with_labels=True, node_color=colors)
 st.pyplot(fig)
-st.balloons()
     
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
