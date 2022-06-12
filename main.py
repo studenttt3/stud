@@ -17,9 +17,10 @@ from sklearn.linear_model import LinearRegression
 import re
 import sqlite3
 
-st.header("Добро пожаловать!")
+st.header("Добро пожаловать, дорогой друг!")
+st.markdown("Этот проект поможет вам выбрать книгу согласно вашим пожеланиям и узнать больше фактов о чтении в целом.")
 st.image("https://img.championat.com/s/735x490/news/big/m/a/kakie-knigi-chitat-v-doroge_1649771640842518832.jpg")
-st.markdown("Здесь вы сможете подобрать себе книгу, а также узнать больше о чтении.")
+st.markdown("Давайте подберем для вас книгу. Выберите желаемую категорию из выпадающего списка, затем установите диапазоны количества страниц и года издания книги.")
 bs = pd.read_csv("Bookshops.csv")
 books = pd.read_csv("books_edited.csv")
 books = books.astype({"num_pages": "Int64"})
@@ -47,8 +48,10 @@ if year_max < year_min:
 else:
     df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
 df_demonstr = df_selection[['title', 'authors', 'average_rating',  'num_pages', 'published_year']]
+st.markdown("Вот 10 лучших по рейтингу книг, соответсвующих вашему запросу.")
 df_demonstr[0:10]
 
+st.markdown("Выберите из них книгу, о которой хотите узнать подробнее.")
 name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
 need = df_selection[lambda x: x["title"] == name_book]
 
@@ -65,14 +68,15 @@ try:
     st.image(need['thumbnail'][0:1].values[0])
 except:
     pass
-st.markdown("This book was written by " + aut + ". You can learn more about him/her or them at this link" + need['wiki_url'][0:1].values[0])
+st.markdown("Автор(ы) этой книги -  " + aut + ". Вы можете почитать об авторе/авторах, перейдя по ссылке: " + need['wiki_url'][0:1].values[0])
 url_pic = need['image_url'][0:1].values[0]
 try:
     st.image(url_pic)
 except:
     pass
-st.markdown("Also you can read description of this book below.")
+st.markdown("Ниже можно ознакомиться с описанием книги.")
 st.markdown(need['description'][0:1].values[0])
+st.markdown("Если описание не пусто, давайте узнаем насколько полным и оригинальным  оно является.)
 try:
     analyze = need['description'][0:1].values[0]
     words = re.findall("[a-zA-Z]+", analyze)
