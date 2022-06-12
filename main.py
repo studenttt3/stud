@@ -28,6 +28,7 @@ books = pd.read_csv("books_edited.csv")
 books = books.astype({"num_pages": "Int64"})
 books = books.astype({"published_year": "Int64"})
 geo = pd.read_csv("geo.csv")
+stat = pd.read_csv("stat.csv")
 
 cat = st.selectbox(
 "Категория", books["categories"].value_counts().index)
@@ -158,18 +159,24 @@ if(which_bs == "Наименьшая концентрация книжных м�
         folium.Marker(location = [lat2, lon2], popup = str(city2)).add_to(map2)
     st_data2 = st_folium(map2, width = 750)
     
+stat = stat[['Education', 'How many books did you read during last 12months?']]
+stat = stat.rename(columns={'How many books did you read during last 12months?': 'number'})
+stat.loc[(stat.Education == "High school incomplete"), 'Education'] = 1
+stat.loc[(stat.Education == "High school graduate"), 'Education'] = 2
+stat.loc[(stat.Education == "Some college, no 4-year degree"), 'Education'] = 3
+stat.loc[(stat.Education == "College graduate"), 'Education'] = 4
+stat.loc[(stat.number <= 10), 'number'] = 1
+stat.loc[(stat.number > 10) & (stat.number <= 50), 'number'] = 2
+stat.loc[(stat.number > 50), 'number'] = 3
 Matrix = np.array(
     [
-        [0, 1, 1, 1, 1, 1, 0, 0],  # a
-        [0, 0, 1, 0, 1, 0, 0, 0],  # b
-        [0, 0, 0, 1, 0, 0, 0, 0],  # c
-        [0, 0, 0, 0, 1, 0, 0, 0],  # d
-        [0, 0, 0, 0, 0, 1, 0, 0],  # e
-        [0, 0, 1, 0, 0, 0, 1, 1],  # f
-        [0, 0, 0, 0, 0, 1, 0, 1],  # g
-        [0, 0, 0, 0, 0, 1, 1, 0]  # h
-    ]
-)
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ])
+for i in range(len(stat.index)):
+    Matrix[stat['Education'][i:i+1].values[0] - 1][stat['number'][i:i+1].values[0] - 1] = 1
 
 G = nx.Graph()
 H = nx.path_graph(Matrix.shape[0]) 
