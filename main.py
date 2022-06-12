@@ -130,7 +130,7 @@ if(which_bs == "Наибольшая концентрация книжных м�
     bs1 = bs.sort_values(by =['Figure'])[-5:]
     fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
     ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='aquamarine4', alpha=0.7, linewidth=2)
-    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='daquamarine4', alpha=0.7)
+    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='aquamarine4', alpha=0.7)
     st.pyplot(fig)
     map1 = folium.Map(location=[0, 0], zoom_start = 1)
     geo1 = geo[0:5]
