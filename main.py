@@ -76,7 +76,7 @@ except:
     pass
 st.markdown("Ниже можно ознакомиться с описанием книги.")
 st.markdown(need['description'][0:1].values[0])
-st.markdown("Если описание не пусто, давайте узнаем насколько полным и оригинальным  оно является.)
+st.markdown("Если описание не пусто, давайте узнаем насколько полным и оригинальным  оно является.")
 try:
     analyze = need['description'][0:1].values[0]
     words = re.findall("[a-zA-Z]+", analyze)
