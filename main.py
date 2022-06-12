@@ -16,6 +16,7 @@ import sklearn
 from sklearn.linear_model import LinearRegression
 import re
 import sqlite3
+import networkx as nx
 
 st.header("Добро пожаловать, дорогой друг!")
 st.markdown("Этот проект поможет вам выбрать книгу согласно вашим пожеланиям и узнать больше фактов о чтении в целом.")
