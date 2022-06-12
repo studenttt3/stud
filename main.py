@@ -169,6 +169,7 @@ Matrix = np.array(
         [0, 0, 0, 0, 0, 1, 1, 0]  # h
     ]
 )
+edags = get_matrix_triad(Matrix)
 G = nx.Graph()
 H = nx.path_graph(Matrix.shape[0]) 
 G.add_nodes_from(H)
