@@ -189,7 +189,7 @@ for i in range(Matrix.shape[0]):
     for j in range(Matrix.shape[1]):
         if(Matrix[i][j] == 1):
             G.add_edge(i, j)
-colors = np.arange(Matrix.shape[0])
+colors = ['mediumseagreen', 'mediumseagreen', 'mediumseagreen', 'mediumseagreen', 'mediumseagreen', 'mediumseagreen', 'mediumseagreen']
 fig, ax = plt.subplots()
 pos = nx.bipartite_layout(G, [0, 1, 2, 3])
 nx.draw(G,pos, with_labels=True, node_color=colors)
