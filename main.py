@@ -168,7 +168,7 @@ stat.loc[(stat.Education == "College graduate"), 'Education'] = 4
 stat.loc[(stat.number <= 10), 'number'] = 1
 stat.loc[(stat.number > 10) & (stat.number <= 50), 'number'] = 2
 stat.loc[(stat.number > 50), 'number'] = 3
- Matrix = np.array(
+Matrix = np.array(
     [
         [0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0],
