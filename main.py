@@ -178,6 +178,7 @@ def get_matrix_triad(coo_matrix , data=False):
 edags = get_matrix_triad(Matrix)
 st.write(edags)
 G = nx.Graph()
+st.set_option('deprecation.showPyplotGlobalUse', False)
 #H = nx.path_graph(Matrix.shape[0]) 
 #G.add_nodes_from(H)
 #G.add_edges_from(edags)
