@@ -170,19 +170,15 @@ Matrix = np.array(
         [0, 0, 0, 0, 0, 1, 1, 0]  # h
     ]
 )
-def get_matrix_triad(coo_matrix , data=False):
-    if not sp.isspmatrix_coo(coo_matrix):
-        coo_matrix = sp.coo_matrix(coo_matrix)
-    temp = np.vstack((coo_matrix.row , coo_matrix.col , coo_matrix.data)).transpose()
-    return temp.tolist()
-edags = get_matrix_triad(Matrix)
-st.write(edags)
+
 G = nx.Graph()
 H = nx.path_graph(Matrix.shape[0]) 
 G.add_nodes_from(H)
-#G.add_edges_from(Matrix)
+for i in range(Matrix.shape[0]):
+    for j in range(Matrix.shape[1]):
+        if(Matrix[i][j] == 1):
+            G.add_edge(i, j)
 colors = np.arange(Matrix.shape[0])
-#nx.draw(G,pos=nx.spring_layout(G))
 fig, ax = plt.subplots()
 pos = nx.kamada_kawai_layout(G)
 nx.draw(G,pos, with_labels=True, node_color=colors)
