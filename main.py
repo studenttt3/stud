@@ -191,7 +191,7 @@ for i in range(Matrix.shape[0]):
             G.add_edge(i, j)
 colors = np.arange(Matrix.shape[0])
 fig, ax = plt.subplots()
-pos = nx.kamada_kawai_layout(G)
+pos = nx.bipartite_layout(G, [0, 1, 2])
 nx.draw(G,pos, with_labels=True, node_color=colors)
 st.pyplot(fig)
     
