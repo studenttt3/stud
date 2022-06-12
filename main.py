@@ -169,6 +169,11 @@ Matrix = np.array(
         [0, 0, 0, 0, 0, 1, 1, 0]  # h
     ]
 )
+def get_matrix_triad(coo_matrix , data=False):
+    if not sp.isspmatrix_coo(coo_matrix):
+        coo_matrix = sp.coo_matrix(coo_matrix)
+    temp = np.vstack((coo_matrix.row , coo_matrix.col , coo_matrix.data)).transpose()
+	return temp.tolist()
 edags = get_matrix_triad(Matrix)
 G = nx.Graph()
 H = nx.path_graph(Matrix.shape[0]) 
