@@ -29,6 +29,7 @@ books = books.astype({"num_pages": "Int64"})
 books = books.astype({"published_year": "Int64"})
 geo = pd.read_csv("geo.csv")
 stat = pd.read_csv("stat.csv")
+stat_1 = pd.read_csv("stat.csv")
 
 cat = st.selectbox(
 "Категория", books["categories"].value_counts().index)
@@ -194,6 +195,7 @@ fig, ax = plt.subplots()
 pos = nx.bipartite_layout(G, [0, 1, 2, 3])
 nx.draw(G,pos, with_labels=True, node_color=colors)
 st.pyplot(fig)
+
     
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
