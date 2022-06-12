@@ -144,8 +144,8 @@ if(which_bs == "Наибольшая концентрация книжных м�
 if(which_bs == "Наименьшая концентрация книжных магазинов"):
     bs1 = bs.sort_values(by =['Figure'])[:5]
     fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
-    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='blue', alpha=0.7, linewidth=2)
-    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='blue', alpha=0.7)
+    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
+    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='mediumseagreen', alpha=0.7)
     st.pyplot(fig)
     map2 = folium.Map(location=[0, 0], zoom_start = 1)
     geo2 = geo[5:10]
