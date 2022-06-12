@@ -156,7 +156,26 @@ if(which_bs == "Наименьшая концентрация книжных м�
     for lat2, lon2, city2 in zip(lat2, lon2, city2): 
         folium.Marker(location = [lat2, lon2], popup = str(city2)).add_to(map2)
     st_data2 = st_folium(map2, width = 750)
-
+    
+Matrix = np.array(
+    [
+        [0, 1, 1, 1, 1, 1, 0, 0],  # a
+        [0, 0, 1, 0, 1, 0, 0, 0],  # b
+        [0, 0, 0, 1, 0, 0, 0, 0],  # c
+        [0, 0, 0, 0, 1, 0, 0, 0],  # d
+        [0, 0, 0, 0, 0, 1, 0, 0],  # e
+        [0, 0, 1, 0, 0, 0, 1, 1],  # f
+        [0, 0, 0, 0, 0, 1, 0, 1],  # g
+        [0, 0, 0, 0, 0, 1, 1, 0]  # h
+    ]
+)
+G = nx.Graph()
+H = nx.path_graph(Matrix.shape[0]) 
+G.add_nodes_from(H)
+G.add_edges_from(edags)
+colors = np.arange(Matrix.shape[0])
+nx.draw(G,pos=nx.spring_layout(G),node_color=colors)
+st.pyplot(G)
     
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
