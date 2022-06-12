@@ -17,6 +17,9 @@ from sklearn.linear_model import LinearRegression
 import re
 import sqlite3
 
+st.header("")
+st.image("https://img.championat.com/s/735x490/news/big/m/a/kakie-knigi-chitat-v-doroge_1649771640842518832.jpg")
+st.markdown("Здесь вы сможете подобрать себе книгу, а также узнать больше о чтении.")
 bs = pd.read_csv("Bookshops.csv")
 books = pd.read_csv("books_edited.csv")
 books = books.astype({"num_pages": "Int64"})
