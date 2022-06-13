@@ -28,6 +28,8 @@ with st.echo(code_location='below'):
     stat_1 = pd.read_csv("stat.csv")
     mos = pd.read_csv("Mos (1).csv")
     pr = pd.read_csv("predict.csv")
+    good = pd.read_csv("good.csv")
+    bad = pd.read_csv("bad.csv")
 
     cat = st.selectbox(
     "Категория", books["categories"].value_counts().index)
@@ -150,10 +152,9 @@ with st.echo(code_location='below'):
     st.markdown("Как мы увидели, в Москве довольно много книжных магазинов в любых районах города, но везде ли покупка книги представляет собой настолько простой процесс? Мы будем рассматривать только крупные города разных стран мира и сравнивать такой показатель как количество книжных магазинов на 100 000 населения. Вы можете выбрать для просмотра города с наименьшей или наибольшей такой концентрацией.")
     which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
     if(which_bs == "Наибольшая концентрация книжных магазинов"):
-        bs1 = bs.sort_values(by =['Figure'])[-5:]
         fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
-        ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
-        ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='mediumseagreen', alpha=0.7)
+        ax.vlines(x = good['City'], ymin = 0, ymax= good['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
+        ax.scatter(x= good['City'], y = good['Figure'], s=75, color='mediumseagreen', alpha=0.7)
         st.pyplot(fig)
         st.markdown("А теперь посмотрим где располагаются города, в которых покупка книги занимает наименьшее количество затруднений, на карте мира (при нажатии на метку на вашем экране появится название города).")
         map1 = folium.Map(location=[0, 0], zoom_start = 1)
@@ -166,10 +167,9 @@ with st.echo(code_location='below'):
         st_data1 = st_folium(map1, width = 750)
     
     if(which_bs == "Наименьшая концентрация книжных магазинов"):
-        bs1 = bs.sort_values(by =['Figure'])[:5]
         fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
-        ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
-        ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='mediumseagreen', alpha=0.7)
+        ax.vlines(x = bad['City'], ymin = 0, ymax= bad['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
+        ax.scatter(x= bad['City'], y = bad['Figure'], s=75, color='mediumseagreen', alpha=0.7)
         st.pyplot(fig)
         st.markdown("А теперь посмотрим где располагаются города, в которых покупка книги занимает наибольшее количество затруднений, на карте мира (при нажатии на метку на вашем экране появится название города).")
         map2 = folium.Map(location=[0, 0], zoom_start = 1)
