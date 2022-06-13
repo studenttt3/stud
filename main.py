@@ -298,19 +298,17 @@ with st.echo(code_location='below'):
     st.subheader("Целостность и общее впечатление судить не мне😊")
     st.header("Код из файла webscrap.ipynb:")
     '''
+    
     import pandas as pd
     import numpy as np
     import wikipedia
     import requests
-    
     books = pd.read_csv("books.csv")
-    
     from selenium import webdriver
     from selenium.webdriver.common.keys import Keys
     from selenium.webdriver.chrome.service import Service
     from webdriver_manager.chrome import ChromeDriverManager
     from selenium.webdriver.common.by import By
-
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get("https://www.google.com")
     for j in range(len(books.index)):
@@ -340,7 +338,9 @@ with st.echo(code_location='below'):
     print(j)
     books.to_csv('books_with_urls.csv')
     '''
+    
     st.header("Код из файла sql_data.ipynb:")
+    
     '''
     import sqlite3
     import pandas as pd
