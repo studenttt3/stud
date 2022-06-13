@@ -296,75 +296,78 @@ with st.echo(code_location='below'):
     st.subheader("Объём (осмысленных строк кода, не считая import)")
     st.markdown("Более 120 строк в основном файле (вместе с импортами и комментариями более 260) + около 40 строк в двух других приложенных файлах.")
     st.subheader("Целостность и общее впечатление судить не мне😊")
-    st.header("Код из файла webscrap.ipynb:")
     
-    st.markdown("import pandas as pd")
-    st.markdown("import numpy as np")
-    st.markdown("import wikipedia")
-    st.markdown("import requests")
-    st.markdown("books = pd.read_csv("books.csv")")
-    st.markdown("from selenium import webdriver")
-    st.markdown("from selenium.webdriver.common.keys import Keys")
-    st.markdown("from selenium.webdriver.chrome.service import Service")
-    st.markdown("from webdriver_manager.chrome import ChromeDriverManager")
-    st.markdown("from selenium.webdriver.common.by import By")
-    st.markdown("driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))")
-    st.markdown("driver.get("https://www.google.com")")
-    st.markdown("for j in range(len(books.index)):")
-    st.markdown("url_img = """)
-    st.markdown("url_wiki = """)
-    st.markdown("search0 = books['authors'][j:(j+1)].values[0]")
-    st.markdown("list = str(search0).split(";")")
-    st.markdown("for i in list:")
-    st.markdown("   try:")
-    st.markdown("       search0 = wikipedia.search(i)[0]")
-    st.markdown("       search0 = search0.replace(" ", "_")")
-    st.markdown("       url = 'https://en.wikipedia.org/wiki/' + search0")
-    st.markdown("       url_wiki = url_wiki + "\n" + url")
-    st.markdown("       driver.get(url)")
-    st.markdown("       check =  driver.find_elements_by_xpath('//td[@class="infobox-image"]')")
-    st.markdown("       if(len(check) != 0):")
-    st.markdown("           obj = check[0]")
-    st.markdown("           try:")
-    st.markdown("               picture_url = obj.find_element(By.TAG_NAME, "img").get_attribute("src")")
-    st.markdown("               url_img = url_img + "\n" + picture_url")
-    st.markdown("           except:")
-    st.markdown("               pass")
-    st.markdown("   except IndexError:")
-    st.markdown("       print("not found")")
-    st.markdown("books.loc[j,'wiki_url'] = url_wiki")
-    st.markdown("books.loc[j,'image_url'] = url_img")
-    st.markdown("print(j)")
-    st.markdown("books.to_csv('books_with_urls.csv')")
+    #Код из файла webscrap.ipynb:
+    #import pandas as pd
+    #import numpy as np
+    #import wikipedia
+    #import requests
     
-    st.header("Код из файла sql_data.ipynb:")
+    #books = pd.read_csv("books.csv")
     
-    '''
-    import sqlite3
-    import pandas as pd
-    import numpy as np
-    conn = sqlite3.connect("database.sqlite")
-    c = conn.cursor()
-    df = pd.read_csv("Bookshops.csv")
-    df.to_sql("bss", conn)
-    bad = pd.read_sql(
-    """
-    SELECT City, Figure FROM bss
-    ORDER BY  Figure
-    LIMIT 5
-    """,
-    conn,
-    )
-    good = pd.read_sql(
-    """
-    SELECT City, Figure FROM bss
-    ORDER BY  Figure DESC
-    LIMIT 5
-    """,
-    conn,
-    )
-    bad.to_csv("bad.csv")
-    good.to_csv("good.csv")
-    '''
-
+    #from selenium import webdriver
+    #from selenium.webdriver.common.keys import Keys
+    #from selenium.webdriver.chrome.service import Service
+    #from webdriver_manager.chrome import ChromeDriverManager
+    #from selenium.webdriver.common.by import By
+    
+    #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    #driver.get("https://www.google.com")
+    
+    #for j in range(len(books.index)):
+        #url_img = ""
+        #url_wiki = ""
+        #search0 = books['authors'][j:(j+1)].values[0]
+        #list = str(search0).split(";")
+        #for i in list:
+            #try:
+                #search0 = wikipedia.search(i)[0]
+                #search0 = search0.replace(" ", "_")
+                #url = 'https://en.wikipedia.org/wiki/' + search0
+                #url_wiki = url_wiki + "\n" + url
+                #driver.get(url)
+                #check =  driver.find_elements_by_xpath('//td[@class="infobox-image"]')
+                #if(len(check) != 0):
+                    #obj = check[0]
+                    #try:
+                        #picture_url = obj.find_element(By.TAG_NAME, "img").get_attribute("src")
+                        #url_img = url_img + "\n" + picture_url
+                    #except:
+                        #pass
+            #except IndexError:
+                #print("not found")
+        #books.loc[j,'wiki_url'] = url_wiki
+        #books.loc[j,'image_url'] = url_img
+        #print(j)
+    #books.to_csv('books_with_urls.csv')
+    
+  
+    #Код из файла sql_data.ipynb:
+    
+    #import sqlite3
+    #import pandas as pd
+    #import numpy as np
+    
+    #conn = sqlite3.connect("database.sqlite")
+    #c = conn.cursor()
+    #df = pd.read_csv("Bookshops.csv")
+    #df.to_sql("bss", conn)
+    #bad = pd.read_sql(
+    #"""
+    #SELECT City, Figure FROM bss
+    #ORDER BY  Figure
+    #LIMIT 5
+    #""",
+    #conn,
+    #)
+    #good = pd.read_sql(
+    #"""
+    #SELECT City, Figure FROM bss
+    #ORDER BY  Figure DESC
+    #LIMIT 5
+    #""",
+    #conn,
+    #)
+    #bad.to_csv("bad.csv")
+    #good.to_csv("good.csv")
     
