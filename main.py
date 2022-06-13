@@ -210,7 +210,7 @@ with st.echo(code_location='below'):
     
     shop = st.selectbox("Название", mos['Name'].unique())
     need_1 = mos[lambda x: x["Name"] == shop]
-    map3 = folium.Map(location=[55, 37], zoom_start = 5)
+    map3 = folium.Map(location=[55, 37], zoom_start = 7)
     for i in range(len(need_1.index)):
         ad = mos['Address'][i:i + 1].values[0]
         street = re.split("[,]", ad)[1]
@@ -224,7 +224,7 @@ with st.echo(code_location='below'):
         lat = float(data[0]['lat'])
         lon = float(data[0]['lon'])
         folium.Marker(location = [lat, lon], popup = str(add)).add_to(map3)
-        st_data3 = st_folium(map3, width = 750)
+    st_data3 = st_folium(map3, width = 750)
 
         st.write(lat, lon)
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
