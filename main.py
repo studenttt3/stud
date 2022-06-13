@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import streamlit as st
-import geopandas as gpd
 import matplotlib.pyplot as plt
 import folium
 from streamlit_folium import st_folium
@@ -257,6 +256,13 @@ with st.echo(code_location='below'):
     plt.yticks(fontsize = 10)
     st.pyplot(fig)
     st.markdown("Мы можем заметить, например, что корреляции между чтением печатных книг и использованием аудиокниг очень близка к 0, как и корреляция между чтением печатных и электронных книг. Это значит, что многие люди не используют эти пары типов изданий как взаимозаменяемые, как мы могли ожидать.")
+    
+    entrypoint = "https://nominatim.openstreetmap.org/search"
+    params = {'q': 'Москва, Моховая, 15',
+          'format': 'json'}
+    r = requests.get(entrypoint, params=params)
+    data = r.json()
+    st.write(data[0]['lat'])
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 ##driver.get(url)
