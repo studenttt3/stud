@@ -31,7 +31,7 @@ with st.echo(code_location='below'):
     geo = pd.read_csv("geo.csv")
     stat = pd.read_csv("stat.csv")
     stat_1 = pd.read_csv("stat.csv")
-    mos = pd.read_csv("Mos.csv")
+    mos = pd.read_csv("Mos(1).csv")
 
     cat = st.selectbox(
     "Категория", books["categories"].value_counts().index)
