@@ -227,6 +227,7 @@ with st.echo(code_location='below'):
     st.markdown("4 - не более 10 книг в год,  5 - от 10 до 50 книг в год,  6 - более 50 книг в год")
     st.markdown("Получаем интересный результат, что никто из людей из нашей выборки, не окончивших школу, не читал более 50 книг в год (отсутствует соответствующее ребро). А также никто из людей с высшим образованием не читал менее 10 книг в год.")
     
+    st.markdown("Люди используют для чтения разные ресурсы: печатные книги, аудиокниги, электронные книги, газеты и журналы. Давайте посмотрим как коррелирует тот факт, что человек читает какой-то один из этих видов изданий с тем фактом, что он читает также какой-то определенный друг вид изданий.")
     stat_1 = stat_1[['Read any printed books during last 12months?', 'Read any audiobooks during last 12months?', 'Read any e-books during last 12months?', 'Do you happen to read any daily news or newspapers?', 'Do you happen to read any magazines or journals?']]
     stat_1 = stat_1.rename(columns={'Read any printed books during last 12months?': 'Печатные'})
     stat_1 = stat_1.rename(columns={'Read any audiobooks during last 12months?': 'Аудиокниги'})
@@ -250,7 +251,6 @@ with st.echo(code_location='below'):
     stat_1['Газеты'] = pd.to_numeric(stat_1['Газеты'])
     stat_1['Журналы'] = pd.to_numeric(stat_1['Журналы'])
     stat_1 = stat_1.dropna()
-    stat_1
     fig = plt.figure(figsize = (10,8), dpi = 80)
     sns.heatmap(stat_1.corr(), xticklabels = stat_1.corr().columns, yticklabels = stat_1.corr().columns, cmap ='RdYlGn', center = 0, annot = True)
     plt.title('Коррелограм', fontsize = 24)
