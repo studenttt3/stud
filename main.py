@@ -92,6 +92,7 @@ with st.echo(code_location='below'):
     except:
         pass
 
+    ##Обработка таблицы, на основании которой будут выполняться предсказания цены с помощью линейной регрессии (машинное обучение).
     st.markdown("Теперь давайте узнаем примерную цену книги в рублях, выбрав предпочтительную для вас версию.")
     pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
     pr.loc[(pr.type == "Paperback"), 'type'] = 2
@@ -107,6 +108,7 @@ with st.echo(code_location='below'):
     pr['price'] = pd.to_numeric(pr['price'])
     pr = pr.astype({"type": "Int64"})
 
+    ##Выбор пользователем версии книги и предсказание цены.
     type_s = st.radio("", ('Электронная версия','Книга в мягкой обложке', 'Книга в твердой обложке'))
     if(type_s == 'Электронная версия'):
         type_sel = 1
@@ -120,6 +122,7 @@ with st.echo(code_location='below'):
     model.fit(pr.drop(columns=["price"]), pr["price"])
     st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_, 2)) + " рублей.")
 
+    ##Предсказание цены с помощью линейной регрессии ля книги с любым другим рейтингом и любой версией.
     st.write("Также вы можете предсказать цену любой другой книги с конкретным рейтингом в желаемой версии.")
     type_s0 = st.radio("Версия", ('Электронная версия','Книга в мягкой обложке', 'Книга в твердой обложке'))
     if(type_s0 == 'Электронная версия'):
@@ -132,6 +135,9 @@ with st.echo(code_location='below'):
     rating_sel0 = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
     st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_, 2)) + " рублей.")
     
+    ##Выбор пользователем московской сети книжных магазинов, с помощью REST API нахождение географических координат по известному адресу.
+    ##Здесь тоже есть регулярные выражения для преобразования адреса в таблице к виду, требуемому для запросов
+    ##Затем рисование карты Москвы с расстановкой меток всех магазинов с подписями адресов при клике.
     st.markdown("Если предсказанная цена является приемлемой для вас, то вам пора отправиться за покупкой в книжный магазин. Выберите в выпадающем списке название магазина или сети магазинов, и вы увидите на карте все точки расположения интересующих вас магазинов. При наведении на метку, вы сможете увидеть адрес конкретного магазина")
     shop = st.selectbox("Название", mos['Name'].unique())
     need_1 = mos[lambda x: x["Name"] == shop]
@@ -151,6 +157,8 @@ with st.echo(code_location='below'):
         folium.Marker(location = [lat, lon], popup = str(add)).add_to(map3)
     st_data3 = st_folium(map3, width = 750)
 
+    ##Используются таблицы, полученные с помощью SQL в отдельном файле jupiter для рисования графиков, которые меняются в зависимости от выбора пользователя.
+    ##Все соответствующие выбору пользователя города отмечаются на карте мира с подписями, появляющимися при клике мышкой.
     st.header("Интересные факты о чтении")
     st.image("https://thelighthouse.team/wp-content/uploads/sites/6/2020/07/derecho-y-literatura-2020-4-1.jpg")
     st.markdown("Как мы увидели, в Москве довольно много книжных магазинов в любых районах города, но везде ли покупка книги представляет собой настолько простой процесс? Мы будем рассматривать только крупные города разных стран мира и сравнивать такой показатель как количество книжных магазинов на 100 000 населения. Вы можете выбрать для просмотра города с наименьшей или наибольшей такой концентрацией. По вертикальной оси отложено количество книжных магазинов на 100 000 населения.")
@@ -170,7 +178,6 @@ with st.echo(code_location='below'):
         for lat1, lon1, city1 in zip(lat1, lon1, city1): 
             folium.Marker(location=[lat1, lon1], popup = str(city1)).add_to(map1)
         st_data1 = st_folium(map1, width = 750)
-    
     if(which_bs == "Наименьшая концентрация книжных магазинов"):
         bs1 = bs.sort_values(by =['Figure'])[:5]
         fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
@@ -186,7 +193,8 @@ with st.echo(code_location='below'):
         for lat2, lon2, city2 in zip(lat2, lon2, city2): 
             folium.Marker(location = [lat2, lon2], popup = str(city2)).add_to(map2)
         st_data2 = st_folium(map2, width = 750)
-
+    
+    ##Построение графа (сначала обработка данных таблицы)
     st.markdown("А сейчас самое время узнать как связаны уровень образования человека с количеством прочитанных им книг за год. Для этого будем использовать данные опроса. Представим полученные результаты наглядно с помощью двудольного графа, где зеленые вершины - уровни образования, а персиковые - диапазоны количества прочитанных книг.")
     stat = stat[['Education', 'How many books did you read during last 12months?']]
     stat = stat.rename(columns={'How many books did you read during last 12months?': 'number'})
@@ -210,7 +218,6 @@ with st.echo(code_location='below'):
     for i in range(len(stat.index)):
         Matrix[stat['Education'][i:i+1].values[0] - 1][stat['number'][i:i+1].values[0] + 3] = 1
         Matrix[stat['number'][i:i+1].values[0] + 3][stat['Education'][i:i+1].values[0] - 1] = 1
-
     G = nx.Graph()
     H = nx.path_graph(Matrix.shape[0]) 
     G.add_nodes_from(H)
@@ -228,6 +235,7 @@ with st.echo(code_location='below'):
     st.markdown("4 - не более 10 книг в год,  5 - от 10 до 50 книг в год,  6 - более 50 книг в год")
     st.markdown("Получаем интересный результат, что никто из людей из нашей выборки, не окончивших школу, не читал более 50 книг в год (отсутствует соответствующее ребро). А также никто из людей с высшим образованием не читал менее 10 книг в год.")
     
+    ##Построение коррелограмма с прешествующей обработкой таблицы.
     st.markdown("Люди используют для чтения разные ресурсы: печатные книги, аудиокниги, электронные книги, газеты и журналы. Давайте посмотрим как коррелирует тот факт, что человек читает какой-то один из этих видов изданий с тем фактом, что он читает также какой-то определенный друг вид изданий.")
     stat_1 = stat_1[['Read any printed books during last 12months?', 'Read any audiobooks during last 12months?', 'Read any e-books during last 12months?', 'Do you happen to read any daily news or newspapers?', 'Do you happen to read any magazines or journals?']]
     stat_1 = stat_1.rename(columns={'Read any printed books during last 12months?': 'Печатные'})
@@ -254,7 +262,7 @@ with st.echo(code_location='below'):
     stat_1 = stat_1.dropna()
     fig = plt.figure(figsize = (10,8), dpi = 80)
     sns.heatmap(stat_1.corr(), xticklabels = stat_1.corr().columns, yticklabels = stat_1.corr().columns, cmap ='RdYlGn', center = 0, annot = True)
-    plt.title('Коррелограм', fontsize = 24)
+    plt.title('Коррелограмм', fontsize = 24)
     plt.xticks(fontsize = 10)
     plt.yticks(fontsize = 10)
     st.pyplot(fig)
