@@ -6,9 +6,7 @@ import matplotlib.pyplot as plt
 import folium
 from streamlit_folium import st_folium
 import json
-from geopandas.tools import geocode
 import wikipedia
-from bs4 import BeautifulSoup
 import requests
 import sklearn
 from sklearn.linear_model import LinearRegression
