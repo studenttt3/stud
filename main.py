@@ -115,7 +115,7 @@ opt = st.expander("", True)
 rating_sel = need['average_rating'][0:1].values[0]
 model = LinearRegression()
 model.fit(pr.drop(columns=["price"]), pr["price"])
-st.write("Предсказанная цена составляет " + str(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_) + " рублей.")
+st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_, 2)) + " рублей.")
 
 st.write("Также вы можете предсказать цену любой другой книги с конкретным рейтингом в желаемой версии.")
 type_s0 = st.radio("Версия", ('Электронная версия','Книга в мягкой обложке', 'Книга в твердой обложке'))
@@ -127,7 +127,7 @@ if(type_s0 == 'Книга в твердой обложке'):
     type_sel0 = 3
 opt = st.expander("", True)
 rating_sel0 = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
-st.write("Предсказанная цена составляет " + str(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_) + " рублей.")
+st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_, 2)) + " рублей.")
 
 which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
 if(which_bs == "Наибольшая концентрация книжных магазинов"):
