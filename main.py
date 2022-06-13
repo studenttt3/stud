@@ -130,6 +130,25 @@ with st.echo(code_location='below'):
     opt = st.expander("", True)
     rating_sel0 = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
     st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_, 2)) + " рублей.")
+    
+    st.markdown("Если предсказанная цена является приемлемой для вас, то вам пора отправиться за покупкой в книжный магазин. Выберите в выпадающем списке название магазина или сети магазинов, и вы увидите на карте все точки расположения интересующих вас магазинов. При наведении на метку, вы сможете увидеть адрес конкретного магазина")
+    shop = st.selectbox("Название", mos['Name'].unique())
+    need_1 = mos[lambda x: x["Name"] == shop]
+    map3 = folium.Map(location=[55.7522, 37.6156], zoom_start = 10.485)
+    for i in range(len(need_1.index)):
+        ad = mos['Address'][i:i + 1].values[0]
+        street = re.split("[,]", ad)[1]
+        house = re.findall("[\d]+", ad)
+        add = "Москва," + street + ", " + house[0]
+        entrypoint = "https://nominatim.openstreetmap.org/search"
+        params = {'q': add,
+          'format': 'json'}
+        r = requests.get(entrypoint, params=params)
+        data = r.json()
+        lat = float(data[0]['lat'])
+        lon = float(data[0]['lon'])
+        folium.Marker(location = [lat, lon], popup = str(add)).add_to(map3)
+    st_data3 = st_folium(map3, width = 750)
 
     st.header("Интересные факты о чтении")
     st.image("https://thelighthouse.team/wp-content/uploads/sites/6/2020/07/derecho-y-literatura-2020-4-1.jpg")
@@ -208,24 +227,6 @@ with st.echo(code_location='below'):
     st.markdown("4 - не более 10 книг в год,  5 - от 10 до 50 книг в год,  6 - более 50 книг в год")
     st.markdown("Получаем интересный результат, что никто из людей из нашей выборки, не окончивших школу, не читал более 50 книг в год (отсутствует соответствующее ребро). А также никто из людей с высшим образованием не читал менее 10 книг в год.")
     
-    shop = st.selectbox("Название", mos['Name'].unique())
-    need_1 = mos[lambda x: x["Name"] == shop]
-    map3 = folium.Map(location=[55.7522, 37.6156], zoom_start = 10.485)
-    for i in range(len(need_1.index)):
-        ad = mos['Address'][i:i + 1].values[0]
-        street = re.split("[,]", ad)[1]
-        house = re.findall("[\d]+", ad)
-        add = "Москва," + street + ", " + house[0]
-        entrypoint = "https://nominatim.openstreetmap.org/search"
-        params = {'q': add,
-          'format': 'json'}
-        r = requests.get(entrypoint, params=params)
-        data = r.json()
-        lat = float(data[0]['lat'])
-        lon = float(data[0]['lon'])
-        folium.Marker(location = [lat, lon], popup = str(add)).add_to(map3)
-    st_data3 = st_folium(map3, width = 750)
-
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 ##driver.get(url)
