@@ -210,7 +210,7 @@ with st.echo(code_location='below'):
     
     shop = st.selectbox("Название", mos['Name'].unique())
     need_1 = mos[lambda x: x["Name"] == shop]
-    map3 = folium.Map(location=[55.333146, 37.224384], zoom_start = 9)
+    map3 = folium.Map(location=[55.7522, 37.6156], zoom_start = 11)
     for i in range(len(need_1.index)):
         ad = mos['Address'][i:i + 1].values[0]
         street = re.split("[,]", ad)[1]
