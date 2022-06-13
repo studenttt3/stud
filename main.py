@@ -226,7 +226,7 @@ with st.echo(code_location='below'):
         folium.Marker(location = [lat, lon], popup = str(add)).add_to(map3)
     st_data3 = st_folium(map3, width = 750)
 
-        st.write(lat, lon)
+    st.write(lat, lon)
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 ##driver.get(url)
