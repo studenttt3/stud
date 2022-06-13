@@ -251,9 +251,9 @@ with st.echo(code_location='below'):
     stat_1['Журналы'] = pd.to_numeric(stat_1['Журналы'])
     stat_1 = stat_1.dropna()
     stat_1
-    fig, ax = plt.figure(figsize=(12,10), dpi= 80)
-    sns.heatmap(stat_1.corr(), xticklabels=stat_1.corr().columns, yticklabels=stat_1.corr().columns, cmap='RdYlGn', center=0, annot=True)
-    plt.title('Correlogram of mtcars', fontsize=22)
+    fig = plt.figure(figsize=(12,10), dpi= 80)
+    sns.heatmap(stat_1.corr(), xticklabels = stat_1.corr().columns, yticklabels = stat_1.corr().columns, cmap='RdYlGn', center=0, annot=True)
+    plt.title('Pfgh', fontsize=22)
     plt.xticks(fontsize=12)
     plt.yticks(fontsize=12)
     st.pyplot(fig)
