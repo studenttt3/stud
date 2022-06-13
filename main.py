@@ -4,7 +4,6 @@ import seaborn as sns
 import streamlit as st
 import geopandas as gpd
 import matplotlib.pyplot as plt
-from pywaffle import Waffle
 import folium
 from streamlit_folium import st_folium
 import json
@@ -17,7 +16,7 @@ from sklearn.linear_model import LinearRegression
 import re
 import sqlite3
 import networkx as nx
-import scipy.sparse as sp
+
 
 with st.echo(code_location='below'):
     st.header("Добро пожаловать, дорогой друг!")
