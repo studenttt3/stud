@@ -32,6 +32,7 @@ with st.echo(code_location='below'):
     stat = pd.read_csv("stat.csv")
     stat_1 = pd.read_csv("stat.csv")
     mos = pd.read_csv("Mos (1).csv")
+    pr = pd.read_csv("predict.csv")
 
     cat = st.selectbox(
     "Категория", books["categories"].value_counts().index)
@@ -91,7 +92,6 @@ with st.echo(code_location='below'):
         pass
 
     st.markdown("Теперь давайте узнаем примерную цену книги в рублях, выбрав предпочтительную для вас версию.")
-    pr = pd.read_csv("predict.csv")
     pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
     pr.loc[(pr.type == "Paperback"), 'type'] = 2
     pr.loc[(pr.type == "Hardcover"), 'type'] = 3
