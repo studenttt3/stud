@@ -20,74 +20,74 @@ import networkx as nx
 import scipy.sparse as sp
 
 with st.echo(code_location='below'):
-st.header("Добро пожаловать, дорогой друг!")
-st.markdown("Этот проект поможет вам выбрать книгу согласно вашим пожеланиям и узнать больше фактов о чтении в целом.")
-st.image("https://img.championat.com/s/735x490/news/big/m/a/kakie-knigi-chitat-v-doroge_1649771640842518832.jpg")
-st.markdown("Давайте подберем для вас книгу. Выберите желаемую категорию из выпадающего списка, затем установите диапазоны количества страниц и года издания книги.")
-bs = pd.read_csv("Bookshops.csv")
-books = pd.read_csv("books_edited.csv")
-books = books.astype({"num_pages": "Int64"})
-books = books.astype({"published_year": "Int64"})
-geo = pd.read_csv("geo.csv")
-stat = pd.read_csv("stat.csv")
-stat_1 = pd.read_csv("stat.csv")
+    st.header("Добро пожаловать, дорогой друг!")
+    st.markdown("Этот проект поможет вам выбрать книгу согласно вашим пожеланиям и узнать больше фактов о чтении в целом.")
+    st.image("https://img.championat.com/s/735x490/news/big/m/a/kakie-knigi-chitat-v-doroge_1649771640842518832.jpg")
+    st.markdown("Давайте подберем для вас книгу. Выберите желаемую категорию из выпадающего списка, затем установите диапазоны количества страниц и года издания книги.")
+    bs = pd.read_csv("Bookshops.csv")
+    books = pd.read_csv("books_edited.csv")
+    books = books.astype({"num_pages": "Int64"})
+    books = books.astype({"published_year": "Int64"})
+    geo = pd.read_csv("geo.csv")
+    stat = pd.read_csv("stat.csv")
+    stat_1 = pd.read_csv("stat.csv")
 
-cat = st.selectbox(
-"Категория", books["categories"].value_counts().index)
-df_selection = books[lambda x: x["categories"] == cat]
-df_selection =  df_selection.sort_values('average_rating', ascending = False)
+    cat = st.selectbox(
+    "Категория", books["categories"].value_counts().index)
+    df_selection = books[lambda x: x["categories"] == cat]
+    df_selection =  df_selection.sort_values('average_rating', ascending = False)
 
-optionals1 = st.expander("Выберите желаемый диапазон количества страниц", True)
-page_min = optionals1.slider("Минимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()))
-page_max = optionals1.slider("Максимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()), value = int(books['num_pages'].max()))
-if page_max < page_min:
-    st.error("Минимальное количество страниц должно быть меньше максимального, иначе не получится найти ничего подходящего!")
-else:
-    df_selection = df_selection[(df_selection['num_pages'] <= page_max) & (page_min <= df_selection['num_pages'])]
-    
-year = st.columns(2)
-year_min = year[0].number_input("Минимальный год", value = books['published_year'].min())
-year_max = year[1].number_input("Максимальный год", value = books['published_year'].max())
-if year_max < year_min:
-    st.error("Минимальный год публикации должен быть меньше максимального, иначе не получится найти ничего подходящего!")
-else:
-    df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
-df_demonstr = df_selection[['title', 'authors', 'average_rating',  'num_pages', 'published_year']]
-st.markdown("Вот 10 лучших по рейтингу книг, соответсвующих вашему запросу.")
-df_demonstr[0:10]
-
-st.markdown("Выберите из них книгу, о которой хотите узнать подробнее.")
-name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
-need = df_selection[lambda x: x["title"] == name_book]
-
-search0 = need['authors'][0:1].values[0]
-list = search0.split(";")
-aut = ""
-ln = len(list)
-for i in range(ln):
-    if(i != ln - 1):
-        aut = aut + list[i] + " and "
+    optionals1 = st.expander("Выберите желаемый диапазон количества страниц", True)
+    page_min = optionals1.slider("Минимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()))
+    page_max = optionals1.slider("Максимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()), value = int(books['num_pages'].max()))
+    if page_max < page_min:
+        st.error("Минимальное количество страниц должно быть меньше максимального, иначе не получится найти ничего подходящего!")
     else:
-        aut = aut + list[i]
-try:
-    st.image(need['thumbnail'][0:1].values[0])
-except:
-    pass
-st.markdown("Автор(ы) этой книги -  " + aut + ". Вы можете почитать об авторе/авторах, перейдя по ссылке: " + need['wiki_url'][0:1].values[0])
-url_pic = need['image_url'][0:1].values[0]
-try:
-    st.image(url_pic)
-except:
-    pass
-st.markdown("Ниже можно ознакомиться с описанием книги.")
-st.markdown(need['description'][0:1].values[0])
-st.markdown("Если описание не пусто, давайте узнаем насколько полным и оригинальным  оно является.")
-try:
-    analyze = need['description'][0:1].values[0]
-    words = re.findall("[a-zA-Z]+", analyze)
-    st.write("Длина описания - " + str(len(words)) + " слов.  Из них " + str(len(set(words))) + " слов являются уникальными.")
-except:
-    pass
+        df_selection = df_selection[(df_selection['num_pages'] <= page_max) & (page_min <= df_selection['num_pages'])]
+    
+    year = st.columns(2)
+    year_min = year[0].number_input("Минимальный год", value = books['published_year'].min())
+    year_max = year[1].number_input("Максимальный год", value = books['published_year'].max())
+    if year_max < year_min:
+        st.error("Минимальный год публикации должен быть меньше максимального, иначе не получится найти ничего подходящего!")
+    else:
+        df_selection = df_selection[(df_selection['published_year'] <= year_max) & (year_min <= df_selection['published_year'])]
+    df_demonstr = df_selection[['title', 'authors', 'average_rating',  'num_pages', 'published_year']]
+    st.markdown("Вот 10 лучших по рейтингу книг, соответсвующих вашему запросу.")
+    df_demonstr[0:10]
+
+    st.markdown("Выберите из них книгу, о которой хотите узнать подробнее.")
+    name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
+    need = df_selection[lambda x: x["title"] == name_book]
+
+    search0 = need['authors'][0:1].values[0]
+    list = search0.split(";")
+    aut = ""
+    ln = len(list)
+    for i in range(ln):
+        if(i != ln - 1):
+            aut = aut + list[i] + " and "
+        else:
+            aut = aut + list[i]
+    try:
+        st.image(need['thumbnail'][0:1].values[0])
+    except:
+        pass
+    st.markdown("Автор(ы) этой книги -  " + aut + ". Вы можете почитать об авторе/авторах, перейдя по ссылке: " + need['wiki_url'][0:1].values[0])
+    url_pic = need['image_url'][0:1].values[0]
+    try:
+        st.image(url_pic)
+    except:
+        pass
+    st.markdown("Ниже можно ознакомиться с описанием книги.")
+    st.markdown(need['description'][0:1].values[0])
+    st.markdown("Если описание не пусто, давайте узнаем насколько полным и оригинальным  оно является.")
+    try:
+        analyze = need['description'][0:1].values[0]
+        words = re.findall("[a-zA-Z]+", analyze)
+        st.write("Длина описания - " + str(len(words)) + " слов.  Из них " + str(len(set(words))) + " слов являются уникальными.")
+    except:
+        pass
 
 st.markdown("Теперь давайте узнаем примерную цену книги в рублях, выбрав предпочтительную для вас версию.")
 pr = pd.read_csv("predict.csv")
