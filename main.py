@@ -89,123 +89,123 @@ with st.echo(code_location='below'):
     except:
         pass
 
-st.markdown("Теперь давайте узнаем примерную цену книги в рублях, выбрав предпочтительную для вас версию.")
-pr = pd.read_csv("predict.csv")
-pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
-pr.loc[(pr.type == "Paperback"), 'type'] = 2
-pr.loc[(pr.type == "Hardcover"), 'type'] = 3
-pr.drop(labels = [11],axis = 0, inplace = True)
-pr.drop(labels = [40],axis = 0, inplace = True)
-pr.drop(labels = [33],axis = 0, inplace = True)
-pr = pr.reset_index()
-pr = pr[['type', 'rating', 'price']]
-for i in range(len(pr.index)):
-    pr.loc[i,'rating'] = pr['rating'][i:i+1].values[0][0:3]
-pr['rating'] = pd.to_numeric(pr['rating'])
-pr['price'] = pd.to_numeric(pr['price'])
-pr = pr.astype({"type": "Int64"})
+    st.markdown("Теперь давайте узнаем примерную цену книги в рублях, выбрав предпочтительную для вас версию.")
+    pr = pd.read_csv("predict.csv")
+    pr.loc[(pr.type == "Kindle Edition"), 'type'] = 1
+    pr.loc[(pr.type == "Paperback"), 'type'] = 2
+    pr.loc[(pr.type == "Hardcover"), 'type'] = 3
+    pr.drop(labels = [11],axis = 0, inplace = True)
+    pr.drop(labels = [40],axis = 0, inplace = True)
+    pr.drop(labels = [33],axis = 0, inplace = True)
+    pr = pr.reset_index()
+    pr = pr[['type', 'rating', 'price']]
+    for i in range(len(pr.index)):
+        pr.loc[i,'rating'] = pr['rating'][i:i+1].values[0][0:3]
+    pr['rating'] = pd.to_numeric(pr['rating'])
+    pr['price'] = pd.to_numeric(pr['price'])
+    pr = pr.astype({"type": "Int64"})
 
-type_s = st.radio("", ('Электронная версия','Книга в мягкой обложке', 'Книга в твердой обложке'))
-if(type_s == 'Электронная версия'):
-    type_sel = 1
-if(type_s == 'Книга в мягкой обложке'):
-    type_sel = 2
-if(type_s == 'Книга в твердой обложке'):
-    type_sel = 3
-opt = st.expander("", True)
-rating_sel = need['average_rating'][0:1].values[0]
-model = LinearRegression()
-model.fit(pr.drop(columns=["price"]), pr["price"])
-st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_, 2)) + " рублей.")
+    type_s = st.radio("", ('Электронная версия','Книга в мягкой обложке', 'Книга в твердой обложке'))
+    if(type_s == 'Электронная версия'):
+        type_sel = 1
+    if(type_s == 'Книга в мягкой обложке'):
+        type_sel = 2
+    if(type_s == 'Книга в твердой обложке'):
+        type_sel = 3
+    opt = st.expander("", True)
+    rating_sel = need['average_rating'][0:1].values[0]
+    model = LinearRegression()
+    model.fit(pr.drop(columns=["price"]), pr["price"])
+    st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_, 2)) + " рублей.")
 
-st.write("Также вы можете предсказать цену любой другой книги с конкретным рейтингом в желаемой версии.")
-type_s0 = st.radio("Версия", ('Электронная версия','Книга в мягкой обложке', 'Книга в твердой обложке'))
-if(type_s0 == 'Электронная версия'):
-    type_sel0 = 1
-if(type_s0 == 'Книга в мягкой обложке'):
-    type_sel0 = 2
-if(type_s0 == 'Книга в твердой обложке'):
-    type_sel0 = 3
-opt = st.expander("", True)
-rating_sel0 = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
-st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_, 2)) + " рублей.")
+    st.write("Также вы можете предсказать цену любой другой книги с конкретным рейтингом в желаемой версии.")
+    type_s0 = st.radio("Версия", ('Электронная версия','Книга в мягкой обложке', 'Книга в твердой обложке'))
+    if(type_s0 == 'Электронная версия'):
+        type_sel0 = 1
+    if(type_s0 == 'Книга в мягкой обложке'):
+        type_sel0 = 2
+    if(type_s0 == 'Книга в твердой обложке'):
+        type_sel0 = 3
+    opt = st.expander("", True)
+    rating_sel0 = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
+    st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_, 2)) + " рублей.")
 
-st.header("Интересные факты о чтении")
-st.image("https://thelighthouse.team/wp-content/uploads/sites/6/2020/07/derecho-y-literatura-2020-4-1.jpg")
-st.markdown("Проживая в Москве, мы привыкли, что книгу можно купить в любом районе города, но везде ли покупка книги представляет собой настолько простой процесс? Мы будем рассматривать только крупные города разных стран мира и сравнивать такой показатель как количество книжных магазинов на 100 000 населения. Вы можете выбрать для просмотра города с наименьшей или наибольшей такой концентрацией.")
-which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
-if(which_bs == "Наибольшая концентрация книжных магазинов"):
-    bs1 = bs.sort_values(by =['Figure'])[-5:]
-    fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
-    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
-    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='mediumseagreen', alpha=0.7)
-    st.pyplot(fig)
-    st.markdown("А теперь посмотрим где располагаются города, в которых покупка книги занимает наименьшее количество затруднений, на карте мира (при нажатии на метку на вашем экране появится название города).")
-    map1 = folium.Map(location=[0, 0], zoom_start = 1)
-    geo1 = geo[0:5]
-    lat1 = geo1['lat'] 
-    lon1 = geo1['lon']
-    city1 = geo1['City']
-    for lat1, lon1, city1 in zip(lat1, lon1, city1): 
-        folium.Marker(location=[lat1, lon1], popup = str(city1)).add_to(map1)
-    st_data1 = st_folium(map1, width = 750)
+    st.header("Интересные факты о чтении")
+    st.image("https://thelighthouse.team/wp-content/uploads/sites/6/2020/07/derecho-y-literatura-2020-4-1.jpg")
+    st.markdown("Проживая в Москве, мы привыкли, что книгу можно купить в любом районе города, но везде ли покупка книги представляет собой настолько простой процесс? Мы будем рассматривать только крупные города разных стран мира и сравнивать такой показатель как количество книжных магазинов на 100 000 населения. Вы можете выбрать для просмотра города с наименьшей или наибольшей такой концентрацией.")
+    which_bs = st.radio("", ('Наибольшая концентрация книжных магазинов','Наименьшая концентрация книжных магазинов'))
+    if(which_bs == "Наибольшая концентрация книжных магазинов"):
+        bs1 = bs.sort_values(by =['Figure'])[-5:]
+        fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
+        ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
+        ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='mediumseagreen', alpha=0.7)
+        st.pyplot(fig)
+        st.markdown("А теперь посмотрим где располагаются города, в которых покупка книги занимает наименьшее количество затруднений, на карте мира (при нажатии на метку на вашем экране появится название города).")
+        map1 = folium.Map(location=[0, 0], zoom_start = 1)
+        geo1 = geo[0:5]
+        lat1 = geo1['lat'] 
+        lon1 = geo1['lon']
+        city1 = geo1['City']
+        for lat1, lon1, city1 in zip(lat1, lon1, city1): 
+            folium.Marker(location=[lat1, lon1], popup = str(city1)).add_to(map1)
+        st_data1 = st_folium(map1, width = 750)
     
-if(which_bs == "Наименьшая концентрация книжных магазинов"):
-    bs1 = bs.sort_values(by =['Figure'])[:5]
-    fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
-    ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
-    ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='mediumseagreen', alpha=0.7)
+    if(which_bs == "Наименьшая концентрация книжных магазинов"):
+        bs1 = bs.sort_values(by =['Figure'])[:5]
+        fig, ax = plt.subplots(figsize=(16,10), dpi= 80)
+        ax.vlines(x = bs1['City'], ymin = 0, ymax= bs1['Figure'], color='mediumseagreen', alpha=0.7, linewidth=2)
+        ax.scatter(x= bs1['City'], y = bs1['Figure'], s=75, color='mediumseagreen', alpha=0.7)
+        st.pyplot(fig)
+        st.markdown("А теперь посмотрим где располагаются города, в которых покупка книги занимает наибольшее количество затруднений, на карте мира (при нажатии на метку на вашем экране появится название города).")
+        map2 = folium.Map(location=[0, 0], zoom_start = 1)
+        geo2 = geo[5:10]
+        lat2 = geo2['lat'] 
+        lon2 = geo2['lon']
+        city2 = geo2['City']
+        for lat2, lon2, city2 in zip(lat2, lon2, city2): 
+            folium.Marker(location = [lat2, lon2], popup = str(city2)).add_to(map2)
+        st_data2 = st_folium(map2, width = 750)
+
+    st.markdown("А сейчас самое время узнать как связаны уровень образования человека с количеством прочитанных им книг за год. Для этого будем использовать данные опроса. Представим полученные результаты наглядно с помощью двудольного графа, где зеленые вершины - уровни образования, а персиковые - диапазоны количества прочитанных книг.")
+    stat = stat[['Education', 'How many books did you read during last 12months?']]
+    stat = stat.rename(columns={'How many books did you read during last 12months?': 'number'})
+    stat.loc[(stat.Education == "High school incomplete"), 'Education'] = 1
+    stat.loc[(stat.Education == "High school graduate"), 'Education'] = 2
+    stat.loc[(stat.Education == "Some college, no 4-year degree"), 'Education'] = 3
+    stat.loc[(stat.Education == "College graduate"), 'Education'] = 4
+    stat.loc[(stat.number <= 10), 'number'] = 1
+    stat.loc[(stat.number > 10) & (stat.number <= 50), 'number'] = 2
+    stat.loc[(stat.number > 50), 'number'] = 3
+    Matrix = np.array(
+        [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+        ])
+    for i in range(len(stat.index)):
+        Matrix[stat['Education'][i:i+1].values[0] - 1][stat['number'][i:i+1].values[0] + 3] = 1
+        Matrix[stat['number'][i:i+1].values[0] + 3][stat['Education'][i:i+1].values[0] - 1] = 1
+
+    G = nx.Graph()
+    H = nx.path_graph(Matrix.shape[0]) 
+    G.add_nodes_from(H)
+    for i in range(Matrix.shape[0]):
+        for j in range(Matrix.shape[1]):
+            if(Matrix[i][j] == 1):
+                G.add_edge(i, j)
+    colors = ['mediumseagreen', 'mediumseagreen', 'mediumseagreen', 'mediumseagreen', 'darksalmon', 'darksalmon', 'darksalmon']
+    fig, ax = plt.subplots()
+    pos = nx.bipartite_layout(G, [0, 1, 2, 3])
+    nx.draw(G,pos, with_labels=True, node_color=colors)
     st.pyplot(fig)
-    st.markdown("А теперь посмотрим где располагаются города, в которых покупка книги занимает наибольшее количество затруднений, на карте мира (при нажатии на метку на вашем экране появится название города).")
-    map2 = folium.Map(location=[0, 0], zoom_start = 1)
-    geo2 = geo[5:10]
-    lat2 = geo2['lat'] 
-    lon2 = geo2['lon']
-    city2 = geo2['City']
-    for lat2, lon2, city2 in zip(lat2, lon2, city2): 
-        folium.Marker(location = [lat2, lon2], popup = str(city2)).add_to(map2)
-    st_data2 = st_folium(map2, width = 750)
-
-st.markdown("А сейчас самое время узнать как связаны уровень образования человека с количеством прочитанных им книг за год. Для этого будем использовать данные опроса. Представим полученные результаты наглядно с помощью двудольного графа, где зеленые вершины - уровни образования, а персиковые - диапазоны количества прочитанных книг.")
-stat = stat[['Education', 'How many books did you read during last 12months?']]
-stat = stat.rename(columns={'How many books did you read during last 12months?': 'number'})
-stat.loc[(stat.Education == "High school incomplete"), 'Education'] = 1
-stat.loc[(stat.Education == "High school graduate"), 'Education'] = 2
-stat.loc[(stat.Education == "Some college, no 4-year degree"), 'Education'] = 3
-stat.loc[(stat.Education == "College graduate"), 'Education'] = 4
-stat.loc[(stat.number <= 10), 'number'] = 1
-stat.loc[(stat.number > 10) & (stat.number <= 50), 'number'] = 2
-stat.loc[(stat.number > 50), 'number'] = 3
-Matrix = np.array(
-    [
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-    ])
-for i in range(len(stat.index)):
-    Matrix[stat['Education'][i:i+1].values[0] - 1][stat['number'][i:i+1].values[0] + 3] = 1
-    Matrix[stat['number'][i:i+1].values[0] + 3][stat['Education'][i:i+1].values[0] - 1] = 1
-
-G = nx.Graph()
-H = nx.path_graph(Matrix.shape[0]) 
-G.add_nodes_from(H)
-for i in range(Matrix.shape[0]):
-    for j in range(Matrix.shape[1]):
-        if(Matrix[i][j] == 1):
-            G.add_edge(i, j)
-colors = ['mediumseagreen', 'mediumseagreen', 'mediumseagreen', 'mediumseagreen', 'darksalmon', 'darksalmon', 'darksalmon']
-fig, ax = plt.subplots()
-pos = nx.bipartite_layout(G, [0, 1, 2, 3])
-nx.draw(G,pos, with_labels=True, node_color=colors)
-st.pyplot(fig)
-st.markdown("Более подробно о номерах вершин:")
-st.markdown("0 - не окончил школу,  1 - окончил школу,  2 - не окончил высшее образование,  3 - высшее образование")
-st.markdown("4 - не более 10 книг в год,  5 - от 10 до 50 книг в год,  6 - более 50 книг в год")
-st.markdown("Получаем интересный результат, что никто из людей из нашей выборки, не окончивших школу, не читал более 50 книг в год (отсутствует соответствующее ребро). А также никто из людей с высшим образованием не читал менее 10 книг в год.")
+    st.markdown("Более подробно о номерах вершин:")
+    st.markdown("0 - не окончил школу,  1 - окончил школу,  2 - не окончил высшее образование,  3 - высшее образование")
+    st.markdown("4 - не более 10 книг в год,  5 - от 10 до 50 книг в год,  6 - более 50 книг в год")
+    st.markdown("Получаем интересный результат, что никто из людей из нашей выборки, не окончивших школу, не читал более 50 книг в год (отсутствует соответствующее ребро). А также никто из людей с высшим образованием не читал менее 10 книг в год.")
     
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
