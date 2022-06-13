@@ -1,20 +1,20 @@
-with st.echo(code_location='below'):
-    import pandas as pd
-    import numpy as np
-    import seaborn as sns
-    import streamlit as st
-    import matplotlib.pyplot as plt
-    import folium
-    from streamlit_folium import st_folium
-    import json
-    import wikipedia
-    import requests
-    import sklearn
-    from sklearn.linear_model import LinearRegression
-    import re
-    import sqlite3
-    import networkx as nx
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import streamlit as st
+import matplotlib.pyplot as plt
+import folium
+from streamlit_folium import st_folium
+import json
+import wikipedia
+import requests
+import sklearn
+from sklearn.linear_model import LinearRegression
+import re
+import sqlite3
+import networkx as nx
 
+with st.echo(code_location='below'):
     st.header("Добро пожаловать, дорогой друг!")
     st.markdown("Этот проект поможет вам выбрать книгу согласно вашим пожеланиям и узнать больше фактов о чтении в целом.")
     st.image("https://img.championat.com/s/735x490/news/big/m/a/kakie-knigi-chitat-v-doroge_1649771640842518832.jpg")
