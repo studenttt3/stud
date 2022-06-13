@@ -228,6 +228,7 @@ with st.echo(code_location='below'):
     st.markdown("Получаем интересный результат, что никто из людей из нашей выборки, не окончивших школу, не читал более 50 книг в год (отсутствует соответствующее ребро). А также никто из людей с высшим образованием не читал менее 10 книг в год.")
     
     stat_1 = stat_1[['Read any printed books during last 12months?', 'Read any audiobooks during last 12months?', 'Read any e-books during last 12months?', 'Do you happen to read any daily news or newspapers?', 'Do you happen to read any magazines or journals?']]
+    stat_1
     stat_1 = stat_1.rename(columns={'Read any printed books during last 12months?': 'Печатные'})
     stat_1 = stat_1.rename(columns={'Read any audiobooks during last 12months?': 'Аудиокниги'})
     stat_1 = stat_1.rename(columns={'Read any e-books during last 12months?': 'Электронные'})
@@ -244,7 +245,6 @@ with st.echo(code_location='below'):
     stat_1.loc[(stat_1['Журналы'] == 'Yes'), 'Журналы'] = 1
     stat_1.loc[(stat_1['Журналы'] == 'No'), 'Журналы'] = 0
     stat_1 = stat_1.dropna()
-    st.write(stat_1)
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 ##driver.get(url)
