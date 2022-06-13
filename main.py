@@ -31,6 +31,7 @@ with st.echo(code_location='below'):
     geo = pd.read_csv("geo.csv")
     stat = pd.read_csv("stat.csv")
     stat_1 = pd.read_csv("stat.csv")
+    mos = pd.read_excel("Mos.xlsx")
 
     cat = st.selectbox(
     "Категория", books["categories"].value_counts().index)
@@ -207,6 +208,21 @@ with st.echo(code_location='below'):
     st.markdown("4 - не более 10 книг в год,  5 - от 10 до 50 книг в год,  6 - более 50 книг в год")
     st.markdown("Получаем интересный результат, что никто из людей из нашей выборки, не окончивших школу, не читал более 50 книг в год (отсутствует соответствующее ребро). А также никто из людей с высшим образованием не читал менее 10 книг в год.")
     
+    shop = st.selectbox("Название", mos['Name'].unique())
+    need_1 = mos[lambda x: x["Name"] == shop]
+    for i in range(len(need_1.index)):
+        ad = mos['Address'][i:i + 1].values[0]
+        street = re.split("[,]", ad)[1]
+        house = re.findall("[\d]+", ad)
+        add = "Москва," + street + ", " + house[0]
+        entrypoint = "https://nominatim.openstreetmap.org/search"
+        params = {'q': add,
+          'format': 'json'}
+        r = requests.get(entrypoint, params=params)
+        data = r.json()
+        lat = float(data[0]['lat'])
+        lon = float(data[0]['lon'])
+        st.write(lat, lon)
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 ##driver.get(url)
