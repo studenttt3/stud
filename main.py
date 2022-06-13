@@ -19,6 +19,7 @@ import sqlite3
 import networkx as nx
 import scipy.sparse as sp
 
+with st.echo(code_location=‘below’):
 st.header("Добро пожаловать, дорогой друг!")
 st.markdown("Этот проект поможет вам выбрать книгу согласно вашим пожеланиям и узнать больше фактов о чтении в целом.")
 st.image("https://img.championat.com/s/735x490/news/big/m/a/kakie-knigi-chitat-v-doroge_1649771640842518832.jpg")
