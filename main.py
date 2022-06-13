@@ -244,7 +244,7 @@ with st.echo(code_location='below'):
     stat_1.loc[(stat_1['Журналы'] == 'Yes'), 'Журналы'] = 1
     stat_1.loc[(stat_1['Журналы'] == 'No'), 'Журналы'] = 0
     stat_1 = stat_1.dropna()
-    stat_1
+    st.write(stat_1)
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 ##driver.get(url)
