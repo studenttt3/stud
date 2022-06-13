@@ -223,7 +223,6 @@ with st.echo(code_location='below'):
         data = r.json()
         lat = float(data[0]['lat'])
         lon = float(data[0]['lon'])
-        map2 = folium.Map(location=[0, 0], zoom_start = 1)
         folium.Marker(location = [lat, lon], popup = str(add)).add_to(map3)
         st_data3 = st_folium(map3, width = 750)
 
