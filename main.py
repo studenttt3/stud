@@ -19,6 +19,8 @@ with st.echo(code_location='below'):
     st.markdown("Этот проект поможет вам выбрать книгу согласно вашим пожеланиям и узнать больше фактов о чтении в целом.")
     st.image("https://img.championat.com/s/735x490/news/big/m/a/kakie-knigi-chitat-v-doroge_1649771640842518832.jpg")
     st.markdown("Давайте подберем для вас книгу. Выберите желаемую категорию из выпадающего списка, затем установите диапазоны количества страниц и года издания книги.")
+    
+    ##Чтение всех нужных таблиц из csv-файлов
     bs = pd.read_csv("Bookshops.csv")
     books = pd.read_csv("books_edited.csv")
     books = books.astype({"num_pages": "Int64"})
@@ -28,12 +30,11 @@ with st.echo(code_location='below'):
     stat_1 = pd.read_csv("stat.csv")
     mos = pd.read_csv("Mos (1).csv")
     pr = pd.read_csv("predict.csv")
-
-    cat = st.selectbox(
-    "Категория", books["categories"].value_counts().index)
+    
+    ##Выбор пользователем категории, диапозонов количества страниц и года публикации и отбор 10 лучших книг с заданными параметрами
+    cat = st.selectbox("Категория", books["categories"].value_counts().index)
     df_selection = books[lambda x: x["categories"] == cat]
     df_selection =  df_selection.sort_values('average_rating', ascending = False)
-
     optionals1 = st.expander("Выберите желаемый диапазон количества страниц", True)
     page_min = optionals1.slider("Минимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()))
     page_max = optionals1.slider("Максимальное количество страниц", min_value = int(books['num_pages'].min()), max_value = int(books['num_pages'].max()), value = int(books['num_pages'].max()))
@@ -41,7 +42,6 @@ with st.echo(code_location='below'):
         st.error("Минимальное количество страниц должно быть меньше максимального, иначе не получится найти ничего подходящего!")
     else:
         df_selection = df_selection[(df_selection['num_pages'] <= page_max) & (page_min <= df_selection['num_pages'])]
-    
     year = st.columns(2)
     year_min = year[0].number_input("Минимальный год", value = books['published_year'].min())
     year_max = year[1].number_input("Максимальный год", value = books['published_year'].max())
@@ -53,10 +53,13 @@ with st.echo(code_location='below'):
     st.markdown("Вот 10 лучших по рейтингу книг, соответсвующих вашему запросу.")
     df_demonstr[0:10]
 
+    ##Выбор книги для получения подробной информации, вывод обложки книги, ссылки на страницу википедии об авторе, фото автора и описания книги.
+    ##Обращение к таблице с добавленными ссылкой на страницу википедии об авторе и ссылкой на фото автора, созданной в отдельном файле в jupiter.
+    ##Здесь использовалась библиотека wikipedia для поиска имен авторов в википедии и перехода по первому запросу на страницу со статьей об авторе.
+    ##Далее использовался silenium для нахождения фотографии автора на странице и занесения в таблицу ссылки на нее.
     st.markdown("Выберите из них книгу, о которой хотите узнать подробнее.")
     name_book = st.selectbox("Название книги", df_selection[0:10]['title'].unique())
     need = df_selection[lambda x: x["title"] == name_book]
-
     search0 = need['authors'][0:1].values[0]
     list = search0.split(";")
     aut = ""
@@ -78,6 +81,9 @@ with st.echo(code_location='below'):
         pass
     st.markdown("Ниже можно ознакомиться с описанием книги.")
     st.markdown(need['description'][0:1].values[0])
+    
+    ##Здесь мы находим все слова в тексте описания с помощью регулярных выражений
+    ##Использование регулярных выражений здесь оправдано, потому что недостаточно разделять строку пробелами, а знаки препинания (их много) могут идти сразу после букв.
     st.markdown("Если описание не пусто, давайте узнаем насколько полным и оригинальным  оно является.")
     try:
         analyze = need['description'][0:1].values[0]
