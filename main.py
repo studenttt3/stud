@@ -243,8 +243,13 @@ with st.echo(code_location='below'):
     stat_1.loc[(stat_1['Газеты'] == 'No'), 'Газеты'] = '0'
     stat_1.loc[(stat_1['Журналы'] == 'Yes'), 'Журналы'] = '1'
     stat_1.loc[(stat_1['Журналы'] == 'No'), 'Журналы'] = '0'
-    stat_1 = stat_1.astype({"Печатные": "Int64"})
+    stat_1['Печатные'] = pd.to_numeric(stat_1['Печатные'])
+    stat_1['Аудиокниги'] = pd.to_numeric(stat_1['Аудиокниги'])
+    stat_1['Электронные'] = pd.to_numeric(stat_1['Электронные'])
+    stat_1['Газеты'] = pd.to_numeric(stat_1['Газеты'])
+    stat_1['Журналы'] = pd.to_numeric(stat_1['Журналы'])
     stat_1 = stat_1.dropna()
+    stat_1
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 ##driver.get(url)
