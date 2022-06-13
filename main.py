@@ -233,7 +233,6 @@ with st.echo(code_location='below'):
     stat_1 = stat_1.rename(columns={'Read any e-books during last 12months?': 'Электронные'})
     stat_1 = stat_1.rename(columns={'Do you happen to read any daily news or newspapers?': 'Газеты'})
     stat_1 = stat_1.rename(columns={'Do you happen to read any magazines or journals?': 'Журналы'})
-    stat_1
     stat_1.loc[(stat_1['Печатные'] == 'Yes'), 'Печатные'] = 1
     stat_1.loc[(stat_1['Печатные'] == 'No'), 'Печатные'] = 0
     stat_1.loc[(stat_1['Аудиокниги'] == 'Yes'), 'Аудиокниги'] = 1
@@ -244,6 +243,7 @@ with st.echo(code_location='below'):
     stat_1.loc[(stat_1['Газеты'] == 'No'), 'Газеты'] = 0
     stat_1.loc[(stat_1['Журналы'] == 'Yes'), 'Журналы'] = 1
     stat_1.loc[(stat_1['Журналы'] == 'No'), 'Журналы'] = 0
+    stat_1
     stat_1 = stat_1.dropna()
 ##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
 ##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
