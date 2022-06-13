@@ -254,32 +254,3 @@ with st.echo(code_location='below'):
     st.pyplot(fig)
     st.markdown("Мы можем заметить, например, что корреляции между чтением печатных книг и использованием аудиокниг очень близка к 0, как и корреляция между чтением печатных и электронных книг. Это значит, что многие люди не используют эти пары типов изданий как взаимозаменяемые, как мы могли ожидать.")
     
-    entrypoint = "https://nominatim.openstreetmap.org/search"
-    params = {'q': 'Москва, Моховая, 15',
-          'format': 'json'}
-    r = requests.get(entrypoint, params=params)
-    data = r.json()
-    st.write(data[0]['lat'])
-##driver = webdriver.Chrome('/Users/godun/Downloads/chromedriver_win32 (1)/chromedriver')
-##driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-##driver.get(url)
-##player = driver.find_elements_by_xpath('//td[@class="infobox-image"]')
-##obj = player[0]
-##picture_url = obj.find_element(By.TAG_NAME, "img").get_attribute("src")
-##st.write("https:"+ picture_url)
-
-##text = BeautifulSoup(r.text, 'html.parser')
-##for i in text("td"):
-    ##if(class == "infobox-image"):
-        ##for link in text("img"):
-            ##a = link.get('src')
-            ##if((a is None) == False):
-                ##ans = a
-                ##ind = 1
-            ##if(ind == 1):
-                ##break
-        ##if(ans is None):
-            ##st.write("К сожалению, фотография автора не найдена в википедии")
-        ##else:
-            ##st.write("https:"+  ans)
-
