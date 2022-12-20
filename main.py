@@ -9,7 +9,7 @@ import json
 import wikipedia
 import requests
 #import sklearn
-from sklearn.linear_model import LinearRegression
+#from sklearn.linear_model import LinearRegression
 import re
 import sqlite3
 import networkx as nx
