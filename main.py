@@ -8,7 +8,7 @@ from streamlit_folium import st_folium
 import json
 import wikipedia
 import requests
-import sklearn
+#import sklearn
 from sklearn.linear_model import LinearRegression
 import re
 import sqlite3
