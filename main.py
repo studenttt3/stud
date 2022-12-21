@@ -1,4 +1,4 @@
-pip install -U scikit-learn scipy matplotlib
+pip install scikit-learn
 
 import pandas as pd
 import numpy as np
