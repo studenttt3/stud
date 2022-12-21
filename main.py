@@ -8,8 +8,8 @@ from streamlit_folium import st_folium
 import json
 import wikipedia
 import requests
-#import sklearn
-#from sklearn.linear_model import LinearRegression
+import sklearn
+from sklearn.linear_model import LinearRegression
 import re
 import sqlite3
 import networkx as nx
@@ -122,9 +122,9 @@ with st.echo(code_location='below'):
         type_sel = 3
     opt = st.expander("", True)
     rating_sel = need['average_rating'][0:1].values[0]
-    #model = LinearRegression()
-    #model.fit(pr.drop(columns=["price"]), pr["price"])
-    #st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_, 2)) + " рублей.")
+    model = LinearRegression()
+    model.fit(pr.drop(columns=["price"]), pr["price"])
+    st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel + model.coef_[1] * rating_sel + model.intercept_, 2)) + " рублей.")
 
     ##Предсказание цены с помощью линейной регрессии ля книги с любым другим рейтингом и любой версией.
     st.write("Также вы можете предсказать цену любой другой книги с конкретным рейтингом в желаемой версии.")
