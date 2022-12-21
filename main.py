@@ -137,7 +137,7 @@ with st.echo(code_location='below'):
         type_sel0 = 3
     opt = st.expander("", True)
     rating_sel0 = opt.slider("Рейтинг книги", min_value = 3.0, max_value = 5.0)
-    #st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_, 2)) + " рублей.")
+    st.write("Предсказанная цена составляет " + str(round(model.coef_[0] * type_sel0 + model.coef_[1] * rating_sel0 + model.intercept_, 2)) + " рублей.")
     
     ##Выбор пользователем московской сети книжных магазинов, с помощью REST API нахождение географических координат по известному адресу.
     ##Здесь тоже есть регулярные выражения для преобразования адреса в таблице к виду, требуемому для запросов
