@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import folium
 from streamlit_folium import st_folium
 import json
-import wikipedia
-import requests
 import sklearn
 from sklearn.linear_model import LinearRegression
+import wikipedia
+import requests
 import re
 import sqlite3
 import networkx as nx
